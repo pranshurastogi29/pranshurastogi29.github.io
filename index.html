@@ -435,6 +435,45 @@ footer { padding-block: 28px 40px; border-top: 1px solid var(--line); color: var
 .a-lab { fill: var(--muted); font-family: var(--f-mono); font-size: 10px; }
 .step-body ol.sub { margin: 12px 0 0; padding-left: 20px; display: grid; gap: 6px; max-width: 62ch; }
 
+/* Active nav */
+.nav a { position: relative; }
+.nav a.active { color: var(--ink); }
+.nav a.cta.active { color: var(--accent); }
+.nav a.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 1px; background: currentColor; }
+
+/* Stats strip */
+.stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 0; padding-block: 22px 26px; border-top: 1px solid var(--line); }
+.stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 6px; padding-inline: 20px; min-width: 0; }
+.stat:first-child { padding-left: 0; }
+.stat + .stat { border-left: 1px solid var(--line); }
+.stat dt { font-size: var(--s-sm); color: var(--muted); line-height: 1.35; }
+.stat dd { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 1.9rem; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+
+/* Case-study TL;DR */
+.tldr { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.tldr > div { padding: 14px 16px; display: grid; gap: 4px; align-content: start; font-size: var(--s-sm); min-width: 0; }
+.tldr > div + div { border-left: 1px solid var(--line); }
+.tldr .label { font-size: .68rem; }
+.tldr .res { font-weight: 600; }
+
+@media (max-width: 920px) {
+  .stat { padding-inline: 14px; }
+  .stat dd { font-size: 1.5rem; }
+  .tldr { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tldr > div + div { border-left: none; }
+  .tldr > div:nth-child(even) { border-left: 1px solid var(--line); }
+  .tldr > div:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+@media (max-width: 640px) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 18px; }
+  .stat, .stat:first-child { padding-inline: 0 12px; }
+  .stat + .stat { border-left: none; }
+  .stat:last-child { grid-column: 1 / -1; }
+  .tldr { grid-template-columns: minmax(0, 1fr); }
+  .tldr > div:nth-child(even) { border-left: none; }
+  .tldr > div + div { border-top: 1px solid var(--line); }
+}
+
 /* Lightbox */
 dialog.lightbox { border: none; padding: 0; background: transparent; max-width: min(960px, 94vw); width: 100%; }
 dialog.lightbox::backdrop { background: rgba(6, 12, 22, .78); }
@@ -505,9 +544,7 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
         <a class="btn" href="Pranshu_Rastogi_Resume.pdf" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download resume</a>
       </div>
       <div class="facts">
-        <span><strong>4+ yrs</strong> fraud &amp; FinCrime ML</span>
-        <span><strong>Kaggle Expert</strong> top 2%</span>
-        <span>Noida, India · remote with UK team</span>
+        <span>Noida, India · working remotely with a UK team</span>
       </div>
     </div>
 
@@ -525,6 +562,16 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
       <div class="why" id="why" aria-live="polite"></div>
       <p class="disclaim">Simulated feed. It shows the kinds of decisions my production models make, with SHAP-style reason codes. No real customer data.</p>
     </div>
+  </div>
+
+  <div class="wrap">
+    <dl class="stats" aria-label="At a glance">
+      <div class="stat"><dt>years in fraud &amp; FinCrime ML</dt><dd>4+</dd></div>
+      <div class="stat"><dt>transactions scored each month</dt><dd>15M+</dd></div>
+      <div class="stat"><dt>published papers</dt><dd>6</dd></div>
+      <div class="stat"><dt>international research awards</dt><dd>3</dd></div>
+      <div class="stat"><dt>Kaggle Expert ranking</dt><dd>Top 2%</dd></div>
+    </dl>
   </div>
 
   <section id="impact">
@@ -586,6 +633,12 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
             <p>In an authorised push-payment (APP) scam, the real customer makes the payment after being tricked, so classic fraud signals like a stolen card or a takeover often never fire. I split the problem into two lenses, one on each side of the payment, and took both models through the full ML lifecycle.</p>
           </div>
           <div class="outcome"><b>40%</b><span>total fraud losses cut</span></div>
+        </div>
+        <div class="tldr" aria-label="Summary">
+          <div><span class="label">Problem</span>APP scams are authorised by the real customer, so standard fraud signals miss them, and the bank can be liable as both sender and receiver.</div>
+          <div><span class="label">My role</span>Owned it end to end: problem framing, data and labels, features, both models, deployment and live monitoring.</div>
+          <div><span class="label">Approach</span>Two independent gradient-boosted models, one for each side of the payment, using behavioural and graph features with SHAP reason codes.</div>
+          <div><span class="label">Result</span><span class="res">Total fraud losses down 40%, which led to my promotion to Senior.</span></div>
         </div>
 
         <div>
@@ -664,6 +717,12 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
           </div>
           <div class="outcome"><b>95%</b><span>false-positive alerts removed</span></div>
         </div>
+        <div class="tldr" aria-label="Summary">
+          <div><span class="label">Problem</span>Fuzzy name matching on every transaction flags many innocent near-matches, and each one costs analyst time.</div>
+          <div><span class="label">My role</span>Designed and built the real-time agentic screening service over live OFAC, UN, EU and HMT delta feeds.</div>
+          <div><span class="label">Approach</span>An LLM agent resolves each near-match by checking identifiers against list entries and company records, then clears it with evidence or escalates it.</div>
+          <div><span class="label">Result</span><span class="res">95% of false-positive alerts removed, with zero loss of screening coverage.</span></div>
+        </div>
         <div class="sx">
           <div class="cases" id="cases" role="radiogroup" aria-label="Sample cases"></div>
           <div class="trace-box">
@@ -686,6 +745,12 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
             <p>Business members pay supplier invoices, and fraudsters send edited or fake ones. The engine reads the page with a layout-aware model, extracts every field, and runs specialist agents that each check one thing. Investigators get a ranked evidence report instead of a raw PDF. Select a finding to see where it is on the invoice.</p>
           </div>
           <div class="outcome"><b>£800K</b><span>fraud prevented · +20% precision</span></div>
+        </div>
+        <div class="tldr" aria-label="Summary">
+          <div><span class="label">Problem</span>Fabricated and edited supplier invoices were getting past every rule-based control.</div>
+          <div><span class="label">My role</span>Built the multi-agent document-understanding engine, from layout extraction to the ranked evidence report.</div>
+          <div><span class="label">Approach</span>Layout-aware extraction with LayoutLM, then LLM agents that each check one aspect of the document and report ranked evidence.</div>
+          <div><span class="label">Result</span><span class="res">£800K in fraud prevented, precision up 20%, and less investigator review time.</span></div>
         </div>
         <div class="strip" aria-label="Processing pipeline">
           <span>Invoice PDF</span><i>→</i><span>OCR + layout model</span><i>→</i><span>Field extraction</span><i>→</i><span>4 checking agents</span><i>→</i><span>Ranked evidence report</span><i>→</i><span>Investigator</span>
@@ -1150,6 +1215,26 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
 (function () {
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  /* Highlight the nav link for the section in view */
+  const navLinks = Array.from(document.querySelectorAll('.nav a[href^="#"]'));
+  const linkFor = {};
+  navLinks.forEach(a => { linkFor[a.getAttribute('href').slice(1)] = a; });
+  const setActive = link => navLinks.forEach(a => {
+    a.classList.toggle('active', a === link);
+    if (a === link) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+  });
+  if ('IntersectionObserver' in window) {
+    const heroEl = document.querySelector('.hero');
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        setActive(e.target === heroEl ? null : linkFor[e.target.id]);
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    if (heroEl) spy.observe(heroEl);
+    Object.keys(linkFor).forEach(id => { const s = document.getElementById(id); if (s) spy.observe(s); });
+  }
 
   /* Tabs with deep links (#dual-lens, #sanctions, #invoices) */
   const tabs = Array.from(document.querySelectorAll('#cs-tabs .tab'));
