@@ -435,6 +435,11 @@ footer { padding-block: 28px 40px; border-top: 1px solid var(--line); color: var
 .a-lab { fill: var(--muted); font-family: var(--f-mono); font-size: 10px; }
 .step-body ol.sub { margin: 12px 0 0; padding-left: 20px; display: grid; gap: 6px; max-width: 62ch; }
 
+/* Autoplay controls */
+.step-nav .mid { display: flex; align-items: center; gap: 10px; }
+.auto-bar { height: 2px; background: transparent; }
+.auto-bar i { display: block; height: 100%; width: 0; background: var(--accent); }
+
 /* Step animations */
 .anim { border: 1px solid var(--line); border-radius: 10px; background: var(--paper); overflow: hidden; }
 .anim canvas { display: block; width: 100%; aspect-ratio: 16 / 10; }
@@ -688,10 +693,11 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
           <div class="subhead">The ML lifecycle, step by step</div>
           <div class="pipe">
             <div class="steps-scroll"><ol class="steps" id="steps" role="tablist" aria-label="Lifecycle stages"></ol></div>
+            <div class="auto-bar" id="step-bar" aria-hidden="true"><i></i></div>
             <div class="step-body" id="step-body" role="tabpanel" aria-live="polite"></div>
             <div class="step-nav">
               <button class="btn" type="button" id="step-prev">Previous</button>
-              <span class="count" id="step-count"></span>
+              <span class="mid"><span class="count" id="step-count"></span><button class="mon-ctrl" type="button" id="step-auto">Pause</button></span>
               <button class="btn primary" type="button" id="step-next">Next stage</button>
             </div>
           </div>
@@ -702,10 +708,11 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
           <p class="reg-note" style="margin-bottom:14px">The architecture behind the weekly retraining loop. Experiments and production run the same modular steps, a code change ships a whole training pipeline rather than a single model, and monitoring feeds back into retraining. Select any block, or step through it in order.</p>
           <div class="arch">
             <div class="arch-scroll"><svg id="arch-svg" viewBox="0 0 1000 540" role="group" aria-label="Dual-lens continuous training and serving architecture"></svg></div>
+            <div class="auto-bar" id="arch-bar" aria-hidden="true"><i></i></div>
             <div class="step-body" id="arch-body" aria-live="polite"></div>
             <div class="step-nav">
               <button class="btn" type="button" id="arch-prev">Previous</button>
-              <span class="count" id="arch-count"></span>
+              <span class="mid"><span class="count" id="arch-count"></span><button class="mon-ctrl" type="button" id="arch-auto">Pause</button></span>
               <button class="btn primary" type="button" id="arch-next">Next step</button>
             </div>
           </div>
@@ -730,7 +737,7 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
         <div class="sx">
           <div class="cases" id="cases" role="radiogroup" aria-label="Sample cases"></div>
           <div class="trace-box">
-            <div class="trace-head"><span class="label">Agent trace · sample case</span><button class="mon-ctrl" type="button" id="trace-replay">Replay</button></div>
+            <div class="trace-head"><span class="label">Agent trace · sample case</span><button class="mon-ctrl" type="button" id="sx-auto">Pause</button></div>
             <div class="compare">
               <div><span class="label">Rules only</span><span id="cmp-rules"></span></div>
               <div><span class="label">With the agent</span><span id="cmp-agent"></span></div>
@@ -797,7 +804,7 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
           <div class="report">
             <div class="report-head">
               <div class="rec">Recommendation <span class="chip REVIEW">REVIEW</span><span class="mono" style="font-size:var(--s-xs);color:var(--muted)">risk 0.69</span></div>
-              <button class="mon-ctrl" type="button" id="inv-rerun">Run checks again</button>
+              <button class="mon-ctrl" type="button" id="inv-auto">Pause</button>
             </div>
             <div class="agents" id="agents"></div>
             <ol class="findings" id="findings"></ol>
@@ -1662,6 +1669,52 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
   const lifePlayer = ANIM.player();
   const archPlayer = ANIM.player();
 
+  /* Autoplay: runs while visible, holds while the visitor hovers or interacts, Pause/Play toggle */
+  function makeAuto(root, btn, onRun) {
+    const st = { user: !reduce, vis: false, hover: false, focus: false };
+    let was = false;
+    const running = () => st.user && st.vis && !document.hidden;
+    const sync = () => { const r = running(); if (r !== was) { was = r; onRun(r); } };
+    const label = () => { btn.textContent = st.user ? 'Pause' : 'Play'; btn.setAttribute('aria-label', (st.user ? 'Pause' : 'Play') + ' autoplay'); };
+    btn.addEventListener('click', () => { st.user = !st.user; label(); sync(); });
+    root.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') st.hover = true; });
+    root.addEventListener('pointerleave', () => { st.hover = false; });
+    root.addEventListener('focusin', e => { st.focus = e.target !== btn; });
+    root.addEventListener('focusout', e => { if (!root.contains(e.relatedTarget)) st.focus = false; });
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => { st.vis = es[es.length - 1].isIntersecting; sync(); }, { threshold: 0.2 }).observe(root);
+    else { st.vis = true; setTimeout(sync, 0); }
+    document.addEventListener('visibilitychange', sync);
+    label();
+    return { running, held: () => st.hover || st.focus };
+  }
+  function runBar(bar, ms, on) {
+    const i = bar.firstElementChild;
+    i.style.transition = 'none'; i.style.width = '0';
+    if (!on) return;
+    void i.offsetWidth;
+    i.style.transition = 'width ' + ms + 'ms linear'; i.style.width = '100%';
+  }
+  const STEP_MS = 6500;
+  function stepper(rootSel, btnId, barId, getCur, total, render) {
+    const bar = document.getElementById(barId);
+    let timer = 0;
+    const auto = makeAuto(document.querySelector(rootSel), document.getElementById(btnId), on => schedule(on));
+    function schedule(on) {
+      clearTimeout(timer);
+      if (on === undefined) on = auto.running();
+      runBar(bar, STEP_MS, on);
+      if (!on) return;
+      timer = setTimeout(function tick() {
+        if (!auto.running()) return;
+        if (auto.held()) { timer = setTimeout(tick, 800); return; }
+        render((getCur() + 1) % total());
+      }, STEP_MS);
+    }
+    return () => schedule();
+  }
+  const lifeSchedule = stepper('#panel-dual-lens .pipe', 'step-auto', 'step-bar', () => cur, () => STEPS.length, i => renderStep(i));
+  const archSchedule = stepper('#panel-dual-lens .arch', 'arch-auto', 'arch-bar', () => archCur, () => ARCH.length, i => renderArch(i));
+
   /* Dual-lens lifecycle */
   const STEPS = [
     { short: 'Problem', title: 'Problem statement',
@@ -1725,6 +1778,7 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
       '</div></div><div><div class="subhead">Output</div><div class="artifact">' + esc(s.output) + '</div></div></div>';
     count.textContent = (i + 1) + ' / ' + STEPS.length;
     lifePlayer.show(STEP_ANIMS[i], body.querySelector('.anim'));
+    lifeSchedule();
     prev.disabled = i === 0;
     next.disabled = i === STEPS.length - 1;
     const btn = stepsEl.querySelectorAll('button')[i];
@@ -1862,6 +1916,7 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
       '<div class="step-side"><div class="anim" aria-hidden="true"></div><div><div class="subhead">Tools</div><div class="chips">' + n.tools.map(t => '<span>' + esc(t) + '</span>').join('') + '</div></div></div>';
     document.getElementById('arch-count').textContent = (i + 1) + ' / ' + ARCH.length;
     archPlayer.show(ARCH_ANIMS[i], archBody.querySelector('.anim'));
+    archSchedule();
     archPrev.disabled = i === 0;
     archNext.disabled = i === ARCH.length - 1;
   }
@@ -1937,11 +1992,25 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
       '<li class="' + (animate && !reduce ? 'pending' : '') + '"><span class="i">' + String(j + 1).padStart(2, '0') + '</span><span class="k ' + s[0] + '">' + s[0] + '</span><span>' + s[1] + '</span></li>').join('');
     verdict.className = 'verdict' + (animate && !reduce ? ' pending' : '');
     verdict.innerHTML = '<div class="verdict-top"><span class="chip ' + c.d + '">' + c.d + '</span>' + esc(c.verdict) + '</div><ul>' + c.ev.map(e => '<li>' + esc(e) + '</li>').join('') + '</ul>';
-    if (animate && !reduce) {
+    if (animate) {
       const items = trace.querySelectorAll('li');
-      items.forEach((li, j) => timers.push(setTimeout(() => { li.classList.remove('pending'); li.classList.add('show'); }, 220 + j * 420)));
-      timers.push(setTimeout(() => verdict.classList.remove('pending'), 220 + items.length * 420));
+      const end = reduce ? 0 : 220 + items.length * 420;
+      if (!reduce) {
+        items.forEach((li, j) => timers.push(setTimeout(() => { li.classList.remove('pending'); li.classList.add('show'); }, 220 + j * 420)));
+        timers.push(setTimeout(() => verdict.classList.remove('pending'), end));
+      }
+      timers.push(setTimeout(sxAdvance, end + 3500));
     }
+  }
+  function sxAdvance() {
+    if (!sxAuto.running()) return;
+    if (sxAuto.held()) { timers.push(setTimeout(sxAdvance, 800)); return; }
+    renderCase((curCase + 1) % CASES.length, true);
+  }
+  function sxStop() {
+    timers.forEach(clearTimeout); timers = [];
+    trace.querySelectorAll('li.pending').forEach(li => li.classList.remove('pending'));
+    verdict.classList.remove('pending');
   }
   casesEl.addEventListener('keydown', e => {
     if (!['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft'].includes(e.key)) return;
@@ -1950,8 +2019,8 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
     renderCase(n, true);
     casesEl.querySelectorAll('.case')[n].focus();
   });
-  document.getElementById('trace-replay').addEventListener('click', () => renderCase(curCase, true));
   renderCase(0, false);
+  const sxAuto = makeAuto(document.querySelector('#panel-sanctions .sx'), document.getElementById('sx-auto'), on => { if (on) renderCase(curCase, true); else sxStop(); });
 
   /* Invoice evidence report */
   const AGENTS = ['Arithmetic', 'Supplier history', 'Visual forensics', 'Registry'];
@@ -2003,8 +2072,18 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
     items.forEach((li, i) => invTimers.push(setTimeout(() => { li.classList.remove('pending'); li.classList.add('show'); highlight(FINDINGS[i].region); }, start + i * 450)));
     invTimers.push(setTimeout(() => { passedEl.hidden = false; highlight(FINDINGS[0].region); }, start + items.length * 450));
   }
-  document.getElementById('inv-rerun').addEventListener('click', () => runChecks(true));
+  function invCycle() {
+    runChecks(true);
+    const t0 = reduce ? 0 : 350 + AGENTS.length * 450 + FINDINGS.length * 450 + 600;
+    FINDINGS.forEach((f, i) => invTimers.push(setTimeout(() => { if (!invAuto.held()) highlight(f.region); }, t0 + 1600 * i)));
+    invTimers.push(setTimeout(function next() {
+      if (!invAuto.running()) return;
+      if (invAuto.held()) { invTimers.push(setTimeout(next, 800)); return; }
+      invCycle();
+    }, t0 + 1600 * FINDINGS.length + 1200));
+  }
   runChecks(false);
+  const invAuto = makeAuto(document.querySelector('#panel-invoices .inv-grid'), document.getElementById('inv-auto'), on => { if (on) invCycle(); else runChecks(false); });
 })();
 </script>
 </body>
