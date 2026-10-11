@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pranshurastogi29.github.io/">
+<meta property="og:title" content="Pranshu Rastogi · Senior Data Scientist">
+<meta property="og:description" content="Fraud, AML and agentic AI in production at Tide Bank. 40% fraud losses cut. Outstanding Paper at CLEF 2026, NeurIPS 2025 podium.">
+<meta property="og:image" content="https://pranshurastogi29.github.io/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E1A2B'/%3E%3Ctext x='32' y='43' font-family='Arial' font-weight='700' font-size='28' fill='%23F1F4F7' text-anchor='middle'%3EPR%3C/text%3E%3C/svg%3E">
+<title>Pranshu Rastogi</title>
+<meta name="description" content="Senior Data Scientist building fraud, AML and agentic AI systems in production.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a risk-console portfolio. Live decision feed in the hero, then a ledger of production impact, then research, work and contact in a single left-aligned column. */
+:root {
+  --paper: #F1F4F7;
+  --surface: #FFFFFF;
+  --ink: #0E1A2B;
+  --muted: #566276;
+  --line: #D3DAE3;
+  --accent: #1D4ED8;
+  --accent-soft: #E3EAFB;
+  --flag: #C0352A;
+  --flag-soft: #FBE7E4;
+  --warn: #A15C00;
+  --warn-soft: #FBEFD9;
+  --ok: #1B7A57;
+  --ok-soft: #DDF2E8;
+  --clear: #5B4DB8;
+  --clear-soft: #ECE9FA;
+  --shadow: 0 1px 2px rgba(14, 26, 43, .06), 0 8px 24px rgba(14, 26, 43, .06);
+
+  --f-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --s-xs: .78rem; --s-sm: .875rem; --s-base: 1rem; --s-md: 1.125rem;
+  --s-lg: 1.5rem; --s-xl: 2.1rem; --s-hero: clamp(2.3rem, 5.4vw, 3.9rem);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--f-body); font-size: var(--s-base); line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; letter-spacing: -.015em; }
+p { margin: 0; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.label {
+  font-family: var(--f-mono); font-size: var(--s-xs); text-transform: uppercase;
+  letter-spacing: .09em; color: var(--muted); font-weight: 500;
+}
+
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+
+/* Header */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.top .wrap { display: flex; align-items: center; gap: 24px; min-height: 56px; }
+.brand { font-family: var(--f-display); font-weight: 700; font-size: var(--s-md); color: var(--ink); text-decoration: none; white-space: nowrap; }
+.nav { display: flex; gap: 20px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
+.nav a { color: var(--muted); text-decoration: none; font-size: var(--s-sm); font-weight: 500; white-space: nowrap; padding-block: 6px; }
+.nav a:hover { color: var(--ink); }
+.nav a.cta { color: var(--accent); }
+
+/* Hero */
+.hero { padding-block: 56px 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 48px; align-items: start; }
+.hero-copy { display: grid; gap: 20px; padding-top: 12px; }
+.status { display: inline-flex; align-items: center; gap: 8px; font-size: var(--s-sm); color: var(--muted); }
+.status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px var(--ok-soft); }
+.hero h1 { font-size: var(--s-hero); line-height: 1.02; font-weight: 800; letter-spacing: -.03em; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero .lede { font-size: var(--s-md); color: var(--muted); max-width: 54ch; }
+.hero .lede strong { color: var(--ink); font-weight: 600; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px;
+  font-weight: 600; font-size: var(--s-sm); text-decoration: none; border: 1px solid var(--line);
+  color: var(--ink); background: var(--surface); cursor: pointer; font-family: var(--f-body);
+}
+.btn:hover { border-color: var(--ink); }
+.btn.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn.primary:hover { opacity: .9; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: var(--s-sm); color: var(--muted); }
+.facts span strong { color: var(--ink); font-weight: 600; }
+
+/* Monitor */
+.monitor { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; min-width: 0; }
+.mon-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.mon-title { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: var(--s-sm); }
+.live { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: var(--s-xs); color: var(--flag); letter-spacing: .06em; }
+.live i { width: 7px; height: 7px; border-radius: 50%; background: var(--flag); animation: pulse 1.6s infinite; }
+.live.paused { color: var(--muted); }
+.live.paused i { background: var(--muted); animation: none; }
+@keyframes pulse { 50% { opacity: .25; } }
+.mon-ctrl { font-family: var(--f-mono); font-size: var(--s-xs); background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.mon-ctrl:hover { color: var(--ink); border-color: var(--ink); }
+.counters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
+.counter { padding: 10px 16px; display: grid; gap: 2px; }
+.counter + .counter { border-left: 1px solid var(--line); }
+.counter b { font-family: var(--f-mono); font-size: var(--s-md); font-weight: 500; font-variant-numeric: tabular-nums; }
+.counter .label { font-size: .68rem; }
+.feed { list-style: none; margin: 0; padding: 0; }
+.tx {
+  display: grid; grid-template-columns: 62px minmax(0, 1fr) 84px 64px 86px; gap: 10px; align-items: center;
+  padding: 9px 16px; border-bottom: 1px solid var(--line); cursor: pointer; font-size: var(--s-sm);
+  background: var(--surface); transition: background .2s;
+}
+.tx:hover { background: color-mix(in srgb, var(--accent-soft) 45%, var(--surface)); }
+.tx[aria-selected="true"] { background: var(--accent-soft); }
+.tx.enter { animation: enter .45s ease-out; }
+@keyframes enter { from { transform: translateY(-8px); opacity: .2; } }
+.tx .t { font-family: var(--f-mono); font-size: var(--s-xs); color: var(--muted); }
+.tx .d { min-width: 0; line-height: 1.3; }
+.tx .d b { display: block; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tx .d small { display: block; color: var(--muted); font-size: var(--s-xs); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tx .a { font-family: var(--f-mono); text-align: right; font-variant-numeric: tabular-nums; }
+.score { display: grid; gap: 3px; }
+.score span { font-family: var(--f-mono); font-size: var(--s-xs); font-variant-numeric: tabular-nums; }
+.score i { display: block; height: 4px; border-radius: 2px; background: var(--line); position: relative; overflow: hidden; }
+.score i::after { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--w); background: var(--c); border-radius: 2px; }
+.chip { font-family: var(--f-mono); font-size: .7rem; font-weight: 500; letter-spacing: .05em; padding: 3px 0; border-radius: 5px; text-align: center; }
+.chip.PASS { color: var(--ok); background: var(--ok-soft); }
+.chip.REVIEW { color: var(--warn); background: var(--warn-soft); }
+.chip.BLOCK { color: var(--flag); background: var(--flag-soft); }
+.chip.CLEARED { color: var(--clear); background: var(--clear-soft); }
+.why { padding: 14px 16px 16px; display: grid; gap: 10px; }
+.why-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.why-head h3 { font-size: var(--s-base); font-weight: 700; }
+.why-head .mono { font-size: var(--s-xs); color: var(--muted); }
+.reasons { display: grid; gap: 7px; }
+.reason { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) 48px; gap: 10px; align-items: center; font-size: var(--s-xs); }
+.reason .rl { min-width: 0; }
+.bar { position: relative; height: 10px; }
+.bar::before { content: ""; position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: var(--muted); opacity: .5; }
+.bar i { position: absolute; top: 0; bottom: 0; border-radius: 2px; }
+.bar i.pos { left: 50%; background: var(--flag); }
+.bar i.neg { right: 50%; background: var(--ok); }
+.reason .rv { font-family: var(--f-mono); text-align: right; font-variant-numeric: tabular-nums; }
+.disclaim { font-size: .72rem; color: var(--muted); padding: 10px 16px; border-top: 1px solid var(--line); }
+
+/* Sections */
+section { padding-block: 56px; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
+.sec-head { display: grid; gap: 8px; margin-bottom: 28px; max-width: 65ch; }
+.sec-head h2 { font-size: var(--s-xl); font-weight: 700; line-height: 1.1; }
+.sec-head p { color: var(--muted); }
+
+/* Impact ledger */
+.ledger { display: grid; border-top: 2px solid var(--ink); }
+.entry { display: grid; grid-template-columns: 200px minmax(0, 1fr) minmax(0, 300px); gap: 28px; padding-block: 22px; border-bottom: 1px solid var(--line); align-items: baseline; }
+.fig { font-family: var(--f-display); font-weight: 800; font-size: 2.7rem; line-height: 1; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.fig small { display: block; font-family: var(--f-mono); font-weight: 400; font-size: var(--s-xs); letter-spacing: .04em; color: var(--muted); margin-top: 8px; text-transform: uppercase; }
+.entry h3 { font-size: var(--s-md); font-weight: 700; margin-bottom: 6px; }
+.entry p { color: var(--muted); }
+.stack { font-family: var(--f-mono); font-size: var(--s-xs); color: var(--muted); line-height: 1.7; }
+.stack b { color: var(--ink); font-weight: 500; display: block; text-transform: uppercase; letter-spacing: .08em; font-size: .68rem; margin-bottom: 2px; }
+
+/* Experience */
+.timeline { display: grid; gap: 0; }
+.role { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 28px; padding-block: 20px; border-bottom: 1px solid var(--line); }
+.role:first-child { padding-top: 0; }
+.role .when { font-family: var(--f-mono); font-size: var(--s-sm); color: var(--muted); font-variant-numeric: tabular-nums; }
+.role h3 { font-size: var(--s-md); font-weight: 700; }
+.role .org { color: var(--muted); font-size: var(--s-sm); margin-bottom: 8px; }
+.role ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; max-width: 70ch; }
+.badge { display: inline-block; font-family: var(--f-mono); font-size: .7rem; letter-spacing: .05em; color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 5px; margin-left: 8px; vertical-align: middle; }
+
+/* Awards */
+.awards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-bottom: 40px; }
+.award { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+.award button.thumb { all: unset; cursor: zoom-in; display: block; aspect-ratio: 1200 / 849; max-width: 100%; overflow: hidden; border-bottom: 1px solid var(--line); background: var(--paper); }
+.award button.thumb:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.award img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .35s; }
+.award button.thumb:hover img { transform: scale(1.03); }
+.award .body { padding: 16px 18px 18px; display: grid; gap: 6px; align-content: start; }
+.award .prize { font-family: var(--f-mono); font-size: var(--s-xs); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.award h3 { font-size: var(--s-md); font-weight: 700; line-height: 1.25; }
+.award p { color: var(--muted); font-size: var(--s-sm); }
+.award .links { display: flex; gap: 14px; font-size: var(--s-sm); font-weight: 600; margin-top: 4px; flex-wrap: wrap; }
+
+.pubs { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--line); }
+.pubs li { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 28px; padding-block: 14px; border-bottom: 1px solid var(--line); }
+.pubs .venue { font-family: var(--f-mono); font-size: var(--s-xs); color: var(--muted); padding-top: 3px; }
+.pubs .pt { font-weight: 600; }
+.pubs .pt a { color: var(--ink); text-decoration-color: var(--line); }
+.pubs .pt a:hover { color: var(--accent); text-decoration-color: currentColor; }
+.pubs .pd { color: var(--muted); font-size: var(--s-sm); }
+.pubs .res { color: var(--ink); font-weight: 600; }
+
+/* Projects */
+.projects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.proj { border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: grid; gap: 10px; align-content: start; background: var(--surface); text-decoration: none; color: var(--ink); }
+.proj:hover { border-color: var(--accent); }
+.proj h3 { font-size: var(--s-md); font-weight: 700; }
+.proj p { color: var(--muted); font-size: var(--s-sm); }
+.proj .metric { font-family: var(--f-mono); font-size: var(--s-sm); color: var(--ink); }
+.proj .tags { font-family: var(--f-mono); font-size: var(--s-xs); color: var(--muted); }
+.proj .go { font-size: var(--s-sm); font-weight: 600; color: var(--accent); }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; }
+.skill { padding-block: 16px; border-top: 1px solid var(--line); display: grid; gap: 6px; }
+.skill h3 { font-family: var(--f-mono); font-size: var(--s-xs); text-transform: uppercase; letter-spacing: .09em; font-weight: 500; color: var(--muted); }
+.skill p { font-size: var(--s-sm); }
+
+/* Contact */
+.contact { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+.contact .pitch { font-family: var(--f-display); font-size: var(--s-lg); line-height: 1.3; font-weight: 500; max-width: 34ch; }
+.contact .looking { color: var(--muted); margin-top: 16px; max-width: 60ch; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: grid; gap: 14px; }
+.email { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.email output { font-family: var(--f-mono); font-size: var(--s-sm); padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); user-select: all; min-width: 0; overflow-wrap: anywhere; flex: 1 1 220px; }
+.linklist { list-style: none; margin: 0; padding: 0; display: grid; }
+.linklist a { display: flex; justify-content: space-between; gap: 12px; padding-block: 10px; border-top: 1px solid var(--line); text-decoration: none; color: var(--ink); font-weight: 500; font-size: var(--s-sm); }
+.linklist a span { color: var(--muted); font-family: var(--f-mono); font-size: var(--s-xs); }
+.linklist a:hover { color: var(--accent); }
+.copied { font-size: var(--s-xs); color: var(--ok); min-height: 1.2em; }
+
+footer { padding-block: 28px 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: var(--s-xs); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* Lightbox */
+dialog.lightbox { border: none; padding: 0; background: transparent; max-width: min(960px, 94vw); width: 100%; }
+dialog.lightbox::backdrop { background: rgba(6, 12, 22, .78); }
+dialog.lightbox figure { margin: 0; display: grid; gap: 10px; }
+dialog.lightbox img { width: 100%; border-radius: 8px; display: block; background: #fff; }
+dialog.lightbox figcaption { color: #E5EBF3; font-size: var(--s-sm); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: center; }
+dialog.lightbox figcaption a { color: #A9C0FF; }
+dialog.lightbox .close { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.3); border-radius: 6px; padding: 6px 12px; cursor: pointer; font-family: var(--f-body); }
+
+/* Responsive */
+@media (max-width: 920px) {
+  .hero { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-block: 36px 32px; }
+  .awards, .projects { grid-template-columns: minmax(0, 1fr); }
+  .award { grid-template-columns: minmax(0, 220px) minmax(0, 1fr); grid-template-rows: auto; }
+  .award button.thumb { border-bottom: none; border-right: 1px solid var(--line); aspect-ratio: auto; height: 100%; }
+  .entry { grid-template-columns: 160px minmax(0, 1fr); }
+  .entry .stack { grid-column: 2; }
+  .contact { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+}
+@media (max-width: 640px) {
+  .wrap { padding-inline: 16px; }
+  .nav a:not(.cta) { display: none; }
+  .tx { grid-template-columns: minmax(0, 1fr) 72px 70px; padding-inline: 12px; }
+  .tx .t, .tx .score { display: none; }
+  .counter { padding-inline: 12px; }
+  .reason { grid-template-columns: minmax(0, 1fr) 90px 42px; }
+  .entry, .role, .pubs li { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .entry .stack { grid-column: auto; }
+  .fig { font-size: 2.3rem; }
+  .award { grid-template-columns: minmax(0, 1fr); }
+  .award button.thumb { border-right: none; border-bottom: 1px solid var(--line); aspect-ratio: 1200 / 849; height: auto; }
+  .skills { grid-template-columns: minmax(0, 1fr); }
+  section { padding-block: 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tx.enter, .live i { animation: none; }
+  .award img { transition: none; }
+}
+
+body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Pranshu Rastogi</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#impact">Impact</a>
+      <a href="#experience">Experience</a>
+      <a href="#research">Research</a>
+      <a href="#projects">Projects</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div class="hero-copy">
+      <div class="status"><span class="dot" aria-hidden="true"></span>Open to senior data science roles, full-time or contract</div>
+      <h1>I build the models that stop fraud <em>before the money moves.</em></h1>
+      <p class="lede">Senior Data Scientist at <strong>Tide Bank</strong>, shipping fraud, AML and sanctions-screening systems that score <strong>15M+ transactions a month</strong>. I also publish and compete in applied NLP, with two paper awards and a NeurIPS 2025 podium finish.</p>
+      <div class="actions">
+        <a class="btn primary" href="#contact">Get in touch</a>
+        <a class="btn" href="#impact">See production impact</a>
+      </div>
+      <div class="facts">
+        <span><strong>4+ yrs</strong> fraud &amp; FinCrime ML</span>
+        <span><strong>Kaggle Expert</strong> top 2%</span>
+        <span>Noida, India · remote with UK team</span>
+      </div>
+    </div>
+
+    <div class="monitor" aria-label="Simulated transaction monitor">
+      <div class="mon-head">
+        <div class="mon-title">Transaction monitor <span class="live" id="live"><i></i>LIVE DEMO</span></div>
+        <button class="mon-ctrl" id="toggle" type="button">Pause</button>
+      </div>
+      <div class="counters">
+        <div class="counter"><span class="label">Screened</span><b id="c-screened">0</b></div>
+        <div class="counter"><span class="label">Blocked</span><b id="c-blocked">0</b></div>
+        <div class="counter"><span class="label">Alerts cleared</span><b id="c-cleared">0</b></div>
+      </div>
+      <ul class="feed" id="feed" role="listbox" aria-label="Recent transactions. Select one to see why the model decided."></ul>
+      <div class="why" id="why" aria-live="polite"></div>
+      <p class="disclaim">Simulated feed. It shows the kinds of decisions my production models make, with SHAP-style reason codes. No real customer data.</p>
+    </div>
+  </div>
+
+  <section id="impact">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Production impact · Tide Bank</span>
+        <h2>Models that moved the loss numbers</h2>
+        <p>Each of these went from problem framing to live monitoring under my ownership.</p>
+      </div>
+      <div class="ledger">
+        <div class="entry">
+          <div class="fig">40%<small>fraud losses cut</small></div>
+          <div><h3>Dual-lens APP-fraud models</h3><p>Scored scam victims and perpetrators as two independent risk problems, so the bank can intervene on either side of an authorised push payment. This work earned my promotion to Senior.</p></div>
+          <div class="stack"><b>Stack</b>XGBoost · LightGBM · behavioural graph features · SHAP</div>
+        </div>
+        <div class="entry">
+          <div class="fig">95%<small>false sanctions alerts removed</small></div>
+          <div><h3>Real-time agentic sanctions screening</h3><p>An agentic service over live OFAC, UN, EU and HMT delta feeds that resolves name near-matches on every transaction, with zero loss of screening coverage and no human in the loop.</p></div>
+          <div class="stack"><b>Stack</b>Agentic reasoning loops · LLM entity disambiguation · fuzzy NER</div>
+        </div>
+        <div class="entry">
+          <div class="fig">£800K<small>invoice fraud prevented</small></div>
+          <div><h3>Multi-agent document understanding</h3><p>Reads invoices and outputs ranked evidence reports. It caught fabricated invoices that every rule-based control had missed, raised precision 20% and cut investigator review time.</p></div>
+          <div class="stack"><b>Stack</b>LayoutLM · LLM document understanding · chain-of-thought agents</div>
+        </div>
+        <div class="entry">
+          <div class="fig">£2M<small>saved per year</small></div>
+          <div><h3>Tide's first AML / SAR prevention model</h3><p>Built from scratch and now scoring 15M+ transactions per month in production, reducing members' suspicious-activity losses.</p></div>
+          <div class="stack"><b>Stack</b>Gradient boosting · transaction-network features · GCP · Airflow feature store</div>
+        </div>
+        <div class="entry">
+          <div class="fig">4×<small>faster retraining</small></div>
+          <div><h3>Self-healing champion / challenger MLOps</h3><p>Took retraining from monthly to weekly by fixing root-cause feature-store inconsistencies and automating drift detection, which removed silent model degradation.</p></div>
+          <div class="stack"><b>Stack</b>PSI · KS-test · chi-squared drift detection · automated reporting</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Experience</span>
+        <h2>Where I've worked</h2>
+      </div>
+      <div class="timeline">
+        <div class="role">
+          <div class="when">2024 – Present</div>
+          <div>
+            <h3>Senior Data Scientist <span class="badge">Promoted</span></h3>
+            <div class="org">Tide Bank · London, UK (remote)</div>
+            <ul>
+              <li>Own fraud, sanctions and document-fraud modelling end to end, from problem framing to deployment and live monitoring.</li>
+              <li>Introduced agentic AI into FinCrime operations: real-time sanctions screening and multi-agent invoice review.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="role">
+          <div class="when">Aug 2022 – 2024</div>
+          <div>
+            <h3>Data Scientist</h3>
+            <div class="org">Tide Bank · London, UK (remote)</div>
+            <ul>
+              <li>Built Tide's first AML / SAR prevention model, now in production at 15M+ transactions a month.</li>
+              <li>Designed the champion / challenger retraining framework and drift monitoring used across models.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="role">
+          <div class="when">2018 – 2022</div>
+          <div>
+            <h3>B.Tech, Computer Science</h3>
+            <div class="org">Jaypee Institute of Information Technology · CGPA 8</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Research &amp; competitions</span>
+        <h2>Awarded work, earned alongside a full-time role</h2>
+        <p>Select a certificate to view it full size.</p>
+      </div>
+
+      <div class="awards">
+        <article class="award">
+          <button class="thumb" type="button" data-cert="certs/fin.jpg" data-caption="Outstanding Paper Award · FinMMEval Lab at CLEF 2026" data-src="https://drive.google.com/file/d/1gsBhy4N82dc8U9DIsWPitNumOmODnmZa/view?usp=sharing" aria-label="View FinMMEval 2026 certificate">
+            <img src="certs/fin.jpg" alt="FinMMEval Lab at CLEF 2026 Outstanding Paper Award certificate for Pranshu Rastogi" loading="lazy">
+          </button>
+          <div class="body">
+            <span class="prize">Outstanding Paper Award</span>
+            <h3>FinMMEval 2026 · CLEF</h3>
+            <p>Multilingual and cross-lingual financial QA on Gemini 3.x with no fine-tuning: structured prompting, cost-gated self-consistency voting and tier-aware routing. Sole author.</p>
+            <div class="links"><a href="https://ceur-ws.org/Vol-4283/paper208.pdf" target="_blank" rel="noopener">Paper</a><a href="https://github.com/pranshurastogi29/finmmeval" target="_blank" rel="noopener">Code</a></div>
+          </div>
+        </article>
+        <article class="award">
+          <button class="thumb" type="button" data-cert="certs/third.jpg" data-caption="Third Place, Internal Reasoning · NeurIPS 2025 CURE-Bench" data-src="https://drive.google.com/file/d/1hSXciAGYXUxbrT0iMlU6JgDTOXo-60kA/view?usp=sharing" aria-label="View NeurIPS 2025 CURE-Bench certificate">
+            <img src="certs/third.jpg" alt="NeurIPS 2025 CURE-Bench third place certificate for Pranshu Rastogi" loading="lazy">
+          </button>
+          <div class="body">
+            <span class="prize">Bronze · 6th globally</span>
+            <h3>NeurIPS 2025 · CURE-Bench</h3>
+            <p>Medical AI challenge by Harvard Medical School, MIT and CZI. A confidence-weighted ensemble of frontier LLMs with multi-step agentic reasoning. Invited to the award ceremony in San Diego.</p>
+            <div class="links"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7392445923915894785/" target="_blank" rel="noopener">Announcement</a></div>
+          </div>
+        </article>
+        <article class="award">
+          <button class="thumb" type="button" data-cert="certs/best.jpg" data-caption="Winners, Track 5 Tutor Identification · BEA 2025 at ACL" data-src="https://drive.google.com/file/d/1XCOPHga9RPk-ypK433fbCgqEfClGSeKL/view?usp=sharing" aria-label="View BEA 2025 certificate">
+            <img src="certs/best.jpg" alt="ACL 2025 BEA Workshop Track 5 winners certificate for Rajneesh Tiwari and Pranshu Rastogi" loading="lazy">
+          </button>
+          <div class="body">
+            <span class="prize">Track 5 winner</span>
+            <h3>BEA 2025 Shared Task · ACL</h3>
+            <p>Tutor identity classification and actionability evaluation in math tutoring dialogues. With Rajneesh Tiwari.</p>
+            <div class="links"><a href="https://aclanthology.org/2025.bea-1.85/" target="_blank" rel="noopener">Paper</a></div>
+          </div>
+        </article>
+      </div>
+
+      <ul class="pubs">
+        <li><span class="venue">CLEF 2026</span><div><div class="pt"><a href="https://ceur-ws.org/Vol-4283/paper208.pdf" target="_blank" rel="noopener">Pranshu Rastogi @ FinMMEval 2026: Systems for Tasks 1 and 2. Prompt-Engineered Gemini for Multilingual and Cross-Lingual Financial Reports QA</a></div><div class="pd"><span class="res">Outstanding Paper Award.</span> FinMMEval Lab. Rastogi P.</div></div></li>
+        <li><span class="venue">ACL 2025 · BEA</span><div><div class="pt"><a href="https://aclanthology.org/2025.bea-1.85/" target="_blank" rel="noopener">Phaedrus at BEA 2025 Shared Task</a></div><div class="pd"><span class="res">Track 5 winner.</span> Tutor identity classification and actionability evaluation. Rastogi P., Tiwari R.</div></div></li>
+        <li><span class="venue">ACL 2025 · SemEval</span><div><div class="pt"><a href="https://aclanthology.org/2025.semeval-1.306/" target="_blank" rel="noopener">fact check AI at SemEval-2025 Task 7</a></div><div class="pd"><span class="res">5th cross-lingual, 10th monolingual globally.</span> Multilingual claim retrieval with bi-encoder and cross-encoder ensembles. Rastogi P.</div></div></li>
+        <li><span class="venue">ACL 2025 · SDP</span><div><div class="pt"><a href="https://aclanthology.org/2025.sdp-1.17/" target="_blank" rel="noopener">Extracting Software Mentions &amp; Relations using Transformers and LLM Synthetic Data</a></div><div class="pd">NER and relation extraction with LLM-generated augmentation. Rastogi P., Tiwari R.</div></div></li>
+        <li><span class="venue">IEEE BigMM 2021</span><div><div class="pt"><a href="https://www.kaggle.com/competitions/iiitd-abuse-detection-challenge" target="_blank" rel="noopener">Multilingual Abusive Comment Identification (ShareChat / IIIT-Delhi)</a></div><div class="pd">Abuse detection across 13+ Indic languages. Accepted for presentation.</div></div></li>
+        <li><span class="venue">IEEE INDICON 2020</span><div><div class="pt"><a href="https://ieeexplore.ieee.org/document/9342107" target="_blank" rel="noopener">Glaucoma Detection and Segmentation: A Review and Study</a></div><div class="pd">Survey of deep-learning methods. Vasudeva J., Yadav J., Rastogi P.</div></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Side projects</span>
+        <h2>Things I built to learn</h2>
+      </div>
+      <div class="projects">
+        <a class="proj" href="https://github.com/pranshurastogi29/BTC_mining_fees_optimization_RL" target="_blank" rel="noopener">
+          <h3>BTC mining fee optimisation with RL</h3>
+          <p>Framed miner transaction selection as a knapsack problem in a custom Gym environment with reward shaping.</p>
+          <span class="metric">PPO +18.4% over baseline (3.44M vs 2.91M fees)</span>
+          <span class="tags">PPO · DQN · Stable-Baselines3 · PyTorch</span>
+          <span class="go">View on GitHub</span>
+        </a>
+        <a class="proj" href="https://github.com/pranshurastogi29/uis_rnn_for_speaker_diarization" target="_blank" rel="noopener">
+          <h3>Speaker diarization &amp; source separation</h3>
+          <p>One end-to-end pipeline joining UIS-RNN, a custom d-vector speech embedder and a voice-activity pre-filter.</p>
+          <span class="metric">Lower diarisation error on TIMIT</span>
+          <span class="tags">UIS-RNN · PyTorch · VAD</span>
+          <span class="go">View on GitHub</span>
+        </a>
+        <a class="proj" href="https://github.com/pranshurastogi29/News-summarization-Topic-Prediction" target="_blank" rel="noopener">
+          <h3>News summarisation &amp; topic prediction</h3>
+          <p>Fine-tuned TinyBERT for extractive summaries and topic labels, served through Flask and Streamlit.</p>
+          <span class="metric">Under 200 ms per article</span>
+          <span class="tags">TinyBERT · HuggingFace · Flask</span>
+          <span class="go">View on GitHub</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Toolkit</span>
+        <h2>What I work with</h2>
+      </div>
+      <div class="skills">
+        <div class="skill"><h3>Fraud, risk &amp; FinCrime</h3><p>APP-fraud and account-takeover modelling, AML / SAR, sanctions and PEP screening, behavioural and graph features, model explainability for investigators and regulators.</p></div>
+        <div class="skill"><h3>Machine learning</h3><p>XGBoost, LightGBM, PyTorch, HuggingFace Transformers, DeBERTa, Sentence-BERT, bi- and cross-encoder retrieval, LayoutLM, SHAP.</p></div>
+        <div class="skill"><h3>Agentic AI &amp; LLMs</h3><p>Multi-agent orchestration and tool use (ReAct, Reflection, Plan-and-Execute), RAG and context engineering, LoRA / QLoRA, RLHF / DPO, LangChain, LlamaIndex, CrewAI, GPT, Claude and Gemini APIs.</p></div>
+        <div class="skill"><h3>MLOps &amp; data</h3><p>Python, SQL, GCP, Apache Airflow, feature stores, deployment and monitoring, PSI / KS / chi-squared drift detection, champion / challenger, A/B and shadow deployment.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap contact">
+      <div>
+        <span class="label">What I'm looking for</span>
+        <p class="pitch" style="margin-top:10px">High-impact ML problems I can own end to end, on a small senior team that sits close to product and decisions.</p>
+        <p class="looking">I'm strongest in risk, fraud and anomaly detection, and keen on LLM and agentic AI work. I take models from problem framing and feature building through deployment and monitoring, and judge them by the business numbers they move. Remote-first, full-time or contract.</p>
+      </div>
+      <div class="card">
+        <span class="label">Get in touch</span>
+        <div class="email">
+          <output id="email-text">rastogipranshu29@gmail.com</output>
+          <button class="btn" id="copy" type="button">Copy email</button>
+        </div>
+        <div class="copied" id="copied" aria-live="polite"></div>
+        <ul class="linklist">
+          <li><a href="https://www.linkedin.com/in/pranshu-rastogi-data-scientist/" target="_blank" rel="noopener">LinkedIn <span>pranshu-rastogi-data-scientist</span></a></li>
+          <li><a href="https://github.com/pranshurastogi29" target="_blank" rel="noopener">GitHub <span>pranshurastogi29</span></a></li>
+          <li><a href="https://scholar.google.com/citations?user=0bU6bMMAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar <span>publications</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <footer>
+      <span>Pranshu Rastogi · Senior Data Scientist</span>
+      <span>Fraud &amp; FinCrime ML · Agentic AI · Applied NLP</span>
+    </footer>
+  </div>
+</main>
+
+<dialog class="lightbox" id="lightbox" aria-label="Certificate">
+  <figure>
+    <img id="lb-img" src="" alt="">
+    <figcaption>
+      <span id="lb-cap"></span>
+      <span style="display:flex;gap:12px;align-items:center"><a id="lb-src" href="#" target="_blank" rel="noopener">Original PDF</a><button class="close" id="lb-close" type="button">Close</button></span>
+    </figcaption>
+  </figure>
+</dialog>
+
+<script>
+(function () {
+  const BASE = 0.05;
+  const templates = {
+    pass: [
+      { k: 'Card payment', s: 'Tesco Express · contactless', lo: 4, hi: 60, r: [['Merchant seen 41 times before', -0.01], ['Amount within usual range', -0.01]] },
+      { k: 'Direct Debit', s: 'HMRC VAT · scheduled', lo: 900, hi: 2400, r: [['Mandate active for 2 years', -0.02], ['Matches quarterly pattern', -0.01]] },
+      { k: 'Faster Payment', s: 'Regular supplier · 14th payment', lo: 300, hi: 1800, r: [['Established payee', -0.02], ['Amount within usual range', -0.01], ['Known device and location', -0.01]] },
+      { k: 'Card payment', s: 'AWS EMEA · recurring', lo: 120, hi: 480, r: [['Recurring merchant', -0.02], ['Amount within usual range', -0.01]] },
+      { k: 'Payroll batch', s: '6 payees · monthly run', lo: 9000, hi: 16000, r: [['Payees unchanged since last run', -0.02], ['Usual day of month', -0.01]] },
+      { k: 'Card payment', s: 'Shell · fuel', lo: 30, hi: 95, r: [['Merchant category matches business', -0.01], ['Known card-present terminal', -0.01]] }
+    ],
+    flagged: [
+      { k: 'Faster Payment', s: 'New payee · memo "urgent, pay today"', amt: 2450, d: 'BLOCK', title: 'Likely authorised push-payment scam',
+        r: [['Payee added 3 min before transfer', 0.34], ['Memo matches APP-scam language', 0.22], ['Amount 7.8× the 90-day median', 0.19], ['Session on a new device', 0.11]] },
+      { k: 'International payment', s: 'A. Rahman Trading · name screen', amt: 3100, d: 'CLEARED', base: 0.20, title: 'Sanctions near-match resolved by agent',
+        r: [['Partial name match to a listed entity', 0.31], ['Date of birth does not match', -0.21], ['Registered in a different country', -0.14], ['No shared passport or company number', -0.10]] },
+      { k: 'Supplier invoice', s: 'INV-20931 · Northgate Supplies Ltd', amt: 8900, d: 'REVIEW', title: 'Possible fabricated invoice',
+        r: [['Bank details differ from past invoices', 0.24], ['Layout anomaly in the totals block', 0.17], ['Supplier domain registered 9 days ago', 0.14], ['Amount just under approval limit', 0.09]] },
+      { k: 'Card not present', s: '4 attempts in 90 s · electronics', amt: 980, d: 'BLOCK', title: 'Likely account takeover',
+        r: [['Password reset 6 min earlier', 0.29], ['New device and IP country', 0.21], ['Burst of card-not-present attempts', 0.18], ['Delivery address changed today', 0.12]] }
+    ]
+  };
+
+  const feed = document.getElementById('feed');
+  const why = document.getElementById('why');
+  const live = document.getElementById('live');
+  const toggle = document.getElementById('toggle');
+  const cS = document.getElementById('c-screened');
+  const cB = document.getElementById('c-blocked');
+  const cC = document.getElementById('c-cleared');
+  const MAX_ROWS = 6;
+  let rows = [];
+  let counts = { screened: 12840, blocked: 37, cleared: 412 };
+  let clock = 9 * 3600 + 41 * 60 + 12;
+  let flagIdx = 0, passIdx = 0, sinceFlag = 0, selectedId = null, nextId = 1;
+  const fmtGBP = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 2, minimumFractionDigits: 2 });
+  const fmtN = new Intl.NumberFormat('en-GB');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function timeStr(s) { return pad(Math.floor(s / 3600) % 24) + ':' + pad(Math.floor(s / 60) % 60) + ':' + pad(s % 60); }
+  function rand(lo, hi) { return lo + Math.random() * (hi - lo); }
+
+  function makeTx(kind) {
+    clock += Math.floor(rand(2, 9));
+    let t;
+    if (kind === 'flag') {
+      const f = templates.flagged[flagIdx++ % templates.flagged.length];
+      const base = f.base ?? BASE;
+      const score = Math.max(0.01, Math.min(0.99, base + f.r.reduce((a, b) => a + b[1], 0)));
+      t = { k: f.k, s: f.s, amt: f.amt, d: f.d, title: f.title, r: f.r, base, score };
+    } else {
+      const p = templates.pass[passIdx++ % templates.pass.length];
+      const score = Math.max(0.01, BASE + p.r.reduce((a, b) => a + b[1], 0) + rand(-0.01, 0.01));
+      t = { k: p.k, s: p.s, amt: Math.round(rand(p.lo, p.hi) * 100) / 100, d: 'PASS', title: 'Routine transaction approved', r: p.r, base: BASE, score };
+    }
+    t.id = nextId++;
+    t.time = timeStr(clock);
+    return t;
+  }
+
+  function scoreColor(t) {
+    if (t.d === 'BLOCK') return 'var(--flag)';
+    if (t.d === 'REVIEW') return 'var(--warn)';
+    if (t.d === 'CLEARED') return 'var(--clear)';
+    return 'var(--ok)';
+  }
+
+  function rowEl(t, animate) {
+    const li = document.createElement('li');
+    li.className = 'tx' + (animate ? ' enter' : '');
+    li.setAttribute('role', 'option');
+    li.tabIndex = 0;
+    li.dataset.id = t.id;
+    li.setAttribute('aria-selected', String(t.id === selectedId));
+    li.innerHTML =
+      '<span class="t">' + t.time + '</span>' +
+      '<span class="d"><b></b><small></small></span>' +
+      '<span class="a">' + fmtGBP.format(t.amt) + '</span>' +
+      '<span class="score"><span>' + t.score.toFixed(2) + '</span><i style="--w:' + Math.round(t.score * 100) + '%;--c:' + scoreColor(t) + '"></i></span>' +
+      '<span class="chip ' + t.d + '">' + t.d + '</span>';
+    li.querySelector('.d b').textContent = t.k;
+    li.querySelector('.d small').textContent = t.s;
+    li.addEventListener('click', () => select(t.id, true));
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(t.id, true); } });
+    return li;
+  }
+
+  function renderWhy(t) {
+    const max = Math.max(...t.r.map(x => Math.abs(x[1])), 0.01);
+    why.innerHTML =
+      '<div class="why-head"><h3></h3><span class="mono"></span></div><div class="reasons"></div>';
+    why.querySelector('h3').textContent = 'Why ' + t.d + ': ' + t.title;
+    why.querySelector('.mono').textContent = 'baseline ' + t.base.toFixed(2) + ' → score ' + t.score.toFixed(2);
+    const box = why.querySelector('.reasons');
+    t.r.forEach(([label, v]) => {
+      const row = document.createElement('div');
+      row.className = 'reason';
+      const w = (Math.abs(v) / max) * 50;
+      row.innerHTML = '<span class="rl"></span><span class="bar"><i class="' + (v >= 0 ? 'pos' : 'neg') + '" style="width:' + w.toFixed(1) + '%"></i></span><span class="rv">' + (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(2) + '</span>';
+      row.querySelector('.rl').textContent = label;
+      box.appendChild(row);
+    });
+  }
+
+  function select(id, user) {
+    selectedId = id;
+    if (user) pinned = true;
+    feed.querySelectorAll('.tx').forEach(li => li.setAttribute('aria-selected', String(Number(li.dataset.id) === id)));
+    const t = rows.find(r => r.id === id);
+    if (t) renderWhy(t);
+  }
+
+  function updateCounters() {
+    cS.textContent = fmtN.format(counts.screened);
+    cB.textContent = fmtN.format(counts.blocked);
+    cC.textContent = fmtN.format(counts.cleared);
+  }
+
+  function push(t, animate) {
+    rows.unshift(t);
+    counts.screened++;
+    if (t.d === 'BLOCK') counts.blocked++;
+    if (t.d === 'CLEARED') counts.cleared++;
+    feed.prepend(rowEl(t, animate));
+    while (rows.length > MAX_ROWS) {
+      const gone = rows.pop();
+      const el = feed.querySelector('[data-id="' + gone.id + '"]');
+      if (el) el.remove();
+      if (gone.id === selectedId) {
+        pinned = false;
+        const next = rows.find(r => r.d !== 'PASS') || rows[0];
+        select(next.id, false);
+      }
+    }
+    updateCounters();
+    if (!pinned && t.d !== 'PASS') select(t.id, false);
+  }
+
+  let pinned = false;
+  const seed = ['pass', 'flag', 'pass', 'pass', 'flag', 'pass'];
+  seed.forEach(k => push(makeTx(k), false));
+  const firstFlag = rows.find(r => r.d === 'BLOCK') || rows.find(r => r.d !== 'PASS');
+  if (firstFlag) select(firstFlag.id, false);
+
+  let timer = null;
+  function tick() {
+    sinceFlag++;
+    const kind = sinceFlag >= 3 && Math.random() < 0.45 ? 'flag' : 'pass';
+    if (kind === 'flag') sinceFlag = 0;
+    push(makeTx(kind), true);
+  }
+  function play() { if (!timer) timer = setInterval(tick, 1900); live.classList.remove('paused'); live.lastChild.textContent = 'LIVE DEMO'; toggle.textContent = 'Pause'; }
+  function pause() { clearInterval(timer); timer = null; live.classList.add('paused'); live.lastChild.textContent = 'PAUSED'; toggle.textContent = 'Play'; }
+  toggle.addEventListener('click', () => (timer ? pause() : play()));
+
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) pause(); else play();
+  document.addEventListener('visibilitychange', () => { if (document.hidden && timer) { clearInterval(timer); timer = null; } else if (!document.hidden && !timer && toggle.textContent === 'Pause') { timer = setInterval(tick, 1900); } });
+
+  // Certificate lightbox
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  document.querySelectorAll('button.thumb').forEach(b => b.addEventListener('click', () => {
+    lbImg.src = b.dataset.cert;
+    lbImg.alt = b.querySelector('img').alt;
+    document.getElementById('lb-cap').textContent = b.dataset.caption;
+    document.getElementById('lb-src').href = b.dataset.src;
+    if (lb.showModal) lb.showModal(); else lb.setAttribute('open', '');
+  }));
+  document.getElementById('lb-close').addEventListener('click', () => lb.close());
+  lb.addEventListener('click', e => { if (e.target === lb) lb.close(); });
+
+  // Copy email
+  const copyBtn = document.getElementById('copy');
+  const copied = document.getElementById('copied');
+  const emailEl = document.getElementById('email-text');
+  copyBtn.addEventListener('click', () => {
+    const text = emailEl.textContent;
+    const fallback = () => {
+      const range = document.createRange(); range.selectNodeContents(emailEl);
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      copied.textContent = 'Selected. Press Ctrl+C or ⌘C to copy.';
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => { copied.textContent = 'Email copied.'; }, fallback);
+    } else fallback();
+  });
+})();
+</script>
+
+</body>
+</html>
