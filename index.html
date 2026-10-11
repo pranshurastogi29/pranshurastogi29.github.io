@@ -403,6 +403,38 @@ footer { padding-block: 28px 40px; border-top: 1px solid var(--line); color: var
   .trace li.show, .findings li.show .finding { animation: none; }
 }
 
+/* Dual-lens architecture diagram */
+.arch { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.arch-scroll { overflow-x: auto; border-bottom: 1px solid var(--line); padding: 12px; }
+.arch-scroll svg { display: block; width: 100%; min-width: 760px; height: auto; }
+.arch-hint { font-size: var(--s-xs); color: var(--muted); padding: 0 24px; margin-top: -6px; }
+.a-node { cursor: pointer; }
+.a-node:focus { outline: none; }
+.a-node .main { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; transition: fill .2s, stroke .2s; }
+.a-node:hover .main { stroke: var(--ink); }
+.a-node:focus-visible .main { stroke: var(--accent); stroke-width: 2.5; }
+.a-node.sel .main { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.a-node.frame .main { fill: color-mix(in srgb, var(--accent-soft) 30%, var(--surface)); stroke: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+.a-node.frame.dashed .main { stroke-dasharray: 6 4; }
+.a-node.frame.sel .main { fill: var(--accent-soft); stroke: var(--accent); }
+.a-node.live .main { stroke: var(--flag); }
+.a-node .band { fill: none; stroke: var(--line); stroke-width: 1.2; }
+.a-node .t { fill: var(--ink); font-family: var(--f-body); font-size: 13px; font-weight: 600; }
+.a-node .s { fill: var(--muted); font-family: var(--f-mono); font-size: 10.5px; }
+.a-node .ft { fill: var(--accent); font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: .04em; }
+.a-inner rect { fill: var(--surface); stroke: var(--line); stroke-width: 1.2; }
+.a-inner text { fill: var(--ink); font-family: var(--f-body); font-size: 11.5px; font-weight: 500; }
+.a-badge circle { fill: var(--ink); }
+.a-badge text { fill: var(--paper); font-family: var(--f-mono); font-size: 10px; font-weight: 500; }
+.a-node.sel .a-badge circle { fill: var(--accent); }
+.a-edge { fill: none; stroke: var(--muted); stroke-width: 1.5; }
+.a-edge.dash { stroke-dasharray: 4 4; }
+.a-head { fill: var(--muted); }
+.a-lane { fill: var(--muted); font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .1em; font-weight: 500; }
+.a-div { stroke: var(--line); stroke-width: 1.2; stroke-dasharray: 3 5; }
+.a-lab { fill: var(--muted); font-family: var(--f-mono); font-size: 10px; }
+.step-body ol.sub { margin: 12px 0 0; padding-left: 20px; display: grid; gap: 6px; max-width: 62ch; }
+
 /* Lightbox */
 dialog.lightbox { border: none; padding: 0; background: transparent; max-width: min(960px, 94vw); width: 100%; }
 dialog.lightbox::backdrop { background: rgba(6, 12, 22, .78); }
@@ -604,6 +636,20 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
               <button class="btn" type="button" id="step-prev">Previous</button>
               <span class="count" id="step-count"></span>
               <button class="btn primary" type="button" id="step-next">Next stage</button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="subhead">How it runs in production · continuous training pipeline</div>
+          <p class="reg-note" style="margin-bottom:14px">The architecture behind the weekly retraining loop. Experiments and production run the same modular steps, a code change ships a whole training pipeline rather than a single model, and monitoring feeds back into retraining. Select any block, or step through it in order.</p>
+          <div class="arch">
+            <div class="arch-scroll"><svg id="arch-svg" viewBox="0 0 1000 540" role="group" aria-label="Dual-lens continuous training and serving architecture"></svg></div>
+            <div class="step-body" id="arch-body" aria-live="polite"></div>
+            <div class="step-nav">
+              <button class="btn" type="button" id="arch-prev">Previous</button>
+              <span class="count" id="arch-count"></span>
+              <button class="btn primary" type="button" id="arch-next">Next step</button>
             </div>
           </div>
         </div>
@@ -1204,6 +1250,138 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
   prev.addEventListener('click', () => cur > 0 && renderStep(cur - 1));
   next.addEventListener('click', () => cur < STEPS.length - 1 && renderStep(cur + 1));
   renderStep(0);
+
+  /* Dual-lens continuous-training architecture */
+  const ARCH = [
+    { id: 'features', x: 20, y: 262, w: 112, h: 72, kind: 'store', lines: ['Feature', 'store'], sub: 'both lenses',
+      title: 'Feature store',
+      text: 'One store serves both lenses. Behavioural features describe senders: payee age, amount against their own history, session and device changes. Graph features describe receiving accounts: inbound money from unrelated senders, how fast it is passed on, links to flagged accounts. Analysis, training and live scoring all read the same definitions, so a model sees the same features in production that it was trained on.',
+      tools: ['Airflow', 'GCP', 'Feature store'] },
+    { id: 'analysis', x: 20, y: 92, w: 112, h: 56, lines: ['Pattern', 'analysis'],
+      title: 'Scam and mule pattern analysis',
+      text: 'New scam and mule patterns are studied on an offline extract from the feature store, alongside confirmed cases from investigators. This is where a new typology, such as a fresh impersonation script or a new way mule networks move money, becomes a candidate feature.',
+      tools: ['SQL', 'Python', 'Investigator feedback'] },
+    { id: 'experiment', frame: true, dashed: true, x: 152, y: 56, w: 528, h: 128, label: 'ORCHESTRATED EXPERIMENT', innerY: 100,
+      inner: ['Validate|data', 'Point-in-time|datasets', 'Train|both lenses', 'Evaluate at|alert budget', 'Validate|vs rules'],
+      title: 'Orchestrated experiment',
+      text: 'Experiments run as the same modular steps the production pipeline uses, not as one-off notebooks, so a winning idea turns straight into pipeline code.',
+      list: ['Validate data: schema, missing values and distribution checks on the extract.', 'Point-in-time datasets: features as they were at payment time, labels only once they have matured.', 'Train both lenses: separate victim and perpetrator models.', 'Evaluate at the alert budget: precision, recall and pounds caught at the volume operations can review.', 'Validate against rules: a candidate must beat the existing rules before it can ship.'],
+      tools: ['XGBoost', 'LightGBM', 'SHAP'] },
+    { id: 'repo', x: 700, y: 100, w: 110, h: 56, kind: 'store', lines: ['Source', 'repository'],
+      title: 'Source repository',
+      text: 'Feature definitions, pipeline steps and model configs are committed to version control. Every production model can be traced back to the exact code and config that produced it.',
+      tools: ['Git', 'Code review'] },
+    { id: 'ci', x: 830, y: 100, w: 150, h: 56, lines: ['CI: pipeline', 'deployment'],
+      title: 'CI: pipeline deployment',
+      text: 'Continuous integration tests and packages the training pipeline, then deploys it to production. What ships is the pipeline, not one trained model, and that is what lets production retrain itself.',
+      tools: ['CI/CD', 'Unit and data tests', 'Airflow DAGs'] },
+    { id: 'trigger', x: 20, y: 392, w: 112, h: 48, kind: 'pill', lines: ['Trigger'], sub: 'weekly · drift',
+      title: 'Retraining trigger',
+      text: 'The production pipeline runs every week, and also on demand when monitoring detects drift or enough newly matured scam labels have arrived. This is how retraining moved from monthly to weekly.',
+      tools: ['Schedules', 'Drift alerts'] },
+    { id: 'pipeline', frame: true, x: 152, y: 262, w: 528, h: 128, label: 'AUTOMATED PIPELINE · AIRFLOW', innerY: 300,
+      inner: ['Validate|data', 'Point-in-time|prep', 'Retrain|both lenses', 'Evaluate at|alert budget', 'Challenger|vs champion'],
+      title: 'Automated training pipeline',
+      text: 'Airflow runs the same five steps with no one in the loop, pulling batches from the feature store.',
+      list: ['Validate data: stop the run if incoming data breaks expectations.', 'Point-in-time prep: rebuild training sets with the label-maturity window and a time-based split.', 'Retrain both lenses: refresh the victim and perpetrator models independently.', 'Evaluate at the alert budget: value-weighted metrics on an out-of-time set.', 'Challenger vs champion: promote only if the new model beats the live one overall and in key segments.'],
+      tools: ['Airflow', 'XGBoost', 'LightGBM'] },
+    { id: 'metadata', x: 262, y: 410, w: 300, h: 36, kind: 'store', lines: ['Run metadata & lineage'],
+      title: 'Run metadata and lineage',
+      text: 'Each run records its data snapshot, parameters, metrics and resulting model. Any live score can be traced to the run that produced its model, and any run can be reproduced for audit and model governance.',
+      tools: ['Experiment tracking', 'Lineage'] },
+    { id: 'registry', x: 700, y: 262, w: 110, h: 72, kind: 'store', lines: ['Model', 'registry'],
+      title: 'Model registry',
+      text: 'Models that pass validation are versioned here with their SHAP explainers and evaluation reports. Serving only ever pulls approved versions, so rolling back means pointing at the previous one.',
+      tools: ['Model versioning', 'SHAP explainers'] },
+    { id: 'cd', x: 830, y: 262, w: 150, h: 72, lines: ['CD: model', 'serving'], sub: 'shadow → champion',
+      title: 'CD: model serving',
+      text: 'New versions go live in stages. Shadow mode comes first, scoring live traffic without acting on it. Champion/challenger and A/B tests follow, then full rollout.',
+      tools: ['Shadow deployment', 'Champion / challenger', 'A/B tests'] },
+    { id: 'serving', x: 830, y: 380, w: 150, h: 86, kind: 'live', lines: ['Prediction', 'service'], sub: 'both lenses, live',
+      title: 'Prediction service',
+      text: 'The victim lens scores each outbound payment before it is released, using fresh features from the store. The perpetrator lens scores accounts as money arrives. A decision policy turns both scores into actions, and every alert carries SHAP reason codes for analysts.',
+      tools: ['Low-latency scoring', 'Decision policy', 'SHAP reason codes'] },
+    { id: 'monitoring', x: 262, y: 478, w: 420, h: 40, lines: ['Performance monitoring'], sub: 'PSI · KS · χ² · label feedback', inline: true,
+      title: 'Performance monitoring',
+      text: 'PSI, KS and chi-squared tests track drift in features and scores. Alert volumes are watched against the budget, and confirmed scam claims and mule cases flow back as labels. Drift or fresh labels fire the trigger, and new patterns go back to analysis, which closes the loop.',
+      tools: ['PSI / KS / χ²', 'Automated reports', 'Label feedback'] }
+  ];
+  const EDGES = [
+    ['M132 120 H148'], ['M680 128 H696'], ['M810 128 H826'],
+    ['M905 156 V202 H416 V258'],
+    ['M76 262 V152'],
+    ['M132 298 H148'],
+    ['M132 416 H142 V372 H148'],
+    ['M680 298 H696'],
+    ['M810 298 H826'],
+    ['M905 334 V376'],
+    ['M905 466 V492 H686'],
+    ['M262 492 H76 V444'],
+    ['M412 390 V406', 'dash'],
+    ['M262 508 H10 V120 H16', 'dash']
+  ];
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.getElementById('arch-svg');
+  const mk = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+  const txt = (parent, x, y, cls, s, anchor) => { const t = mk('text', { x, y, class: cls, 'text-anchor': anchor || 'middle' }, parent); t.textContent = s; return t; };
+  const defs = mk('defs', {}, svg);
+  const marker = mk('marker', { id: 'a-arrow', viewBox: '0 0 10 10', refX: '9', refY: '5', markerWidth: '7', markerHeight: '7', orient: 'auto-start-reverse' }, defs);
+  mk('path', { d: 'M0 0 L10 5 L0 10 z', class: 'a-head' }, marker);
+  txt(svg, 174, 42, 'a-lane', 'EXPERIMENTATION', 'start');
+  mk('line', { x1: 10, y1: 216, x2: 990, y2: 216, class: 'a-div' }, svg);
+  txt(svg, 174, 248, 'a-lane', 'PRODUCTION · CONTINUOUS TRAINING', 'start');
+  txt(svg, 84, 196, 'a-lab', 'offline extract', 'start');
+  EDGES.forEach(([d, cls]) => mk('path', { d, class: 'a-edge' + (cls ? ' ' + cls : ''), 'marker-end': 'url(#a-arrow)' }, svg));
+  const groups = [];
+  ARCH.forEach((n, i) => {
+    const g = mk('g', { class: 'a-node' + (n.frame ? ' frame' : '') + (n.dashed ? ' dashed' : '') + (n.kind === 'live' ? ' live' : ''), tabindex: '0', role: 'button', 'aria-label': (i + 1) + '. ' + n.title }, svg);
+    mk('rect', { x: n.x, y: n.y, width: n.w, height: n.h, rx: n.kind === 'pill' ? n.h / 2 : (n.frame ? 12 : 8), class: 'main' }, g);
+    if (n.kind === 'store') mk('path', { d: 'M' + n.x + ' ' + (n.y + 10) + ' H' + (n.x + n.w), class: 'band' }, g);
+    if (n.frame) {
+      txt(g, n.x + 22, n.y + 24, 'ft', n.label, 'start');
+      n.inner.forEach((label, j) => {
+        const bx = n.x + 14 + j * 102, by = n.innerY;
+        const ig = mk('g', { class: 'a-inner' }, g);
+        mk('rect', { x: bx, y: by, width: 92, height: 56, rx: 6 }, ig);
+        const parts = label.split('|');
+        parts.forEach((p, k) => txt(ig, bx + 46, by + 25 + k * 14, '', p));
+        if (j < n.inner.length - 1) mk('path', { d: 'M' + (bx + 92) + ' ' + (by + 28) + ' H' + (bx + 99), class: 'a-edge', 'marker-end': 'url(#a-arrow)' }, g);
+      });
+    } else if (n.inline) {
+      txt(g, n.x + n.w / 2, n.y + 18, 't', n.lines[0]);
+      txt(g, n.x + n.w / 2, n.y + 32, 's', n.sub);
+    } else {
+      const block = n.lines.length * 15 + (n.sub ? 14 : 0);
+      const y0 = n.y + n.h / 2 - block / 2 + 11 + (n.kind === 'store' ? 4 : 0);
+      n.lines.forEach((l, k) => txt(g, n.x + n.w / 2, y0 + k * 15, 't', l));
+      if (n.sub) txt(g, n.x + n.w / 2, y0 + n.lines.length * 15 + 1, 's', n.sub);
+    }
+    const b = mk('g', { class: 'a-badge' }, g);
+    mk('circle', { cx: n.x, cy: n.y, r: 10 }, b);
+    txt(b, n.x, n.y + 3.5, '', String(i + 1));
+    g.addEventListener('click', () => renderArch(i));
+    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); renderArch(i); } });
+    groups.push(g);
+  });
+  const archBody = document.getElementById('arch-body');
+  const archPrev = document.getElementById('arch-prev');
+  const archNext = document.getElementById('arch-next');
+  let archCur = 0;
+  function renderArch(i) {
+    archCur = i;
+    const n = ARCH[i];
+    groups.forEach((g, j) => g.classList.toggle('sel', j === i));
+    archBody.innerHTML =
+      '<div><span class="label">Step ' + (i + 1) + ' of ' + ARCH.length + '</span><h4>' + esc(n.title) + '</h4><p class="what">' + esc(n.text) + '</p>' +
+      (n.list ? '<ol class="sub">' + n.list.map(p => '<li>' + esc(p) + '</li>').join('') + '</ol>' : '') + '</div>' +
+      '<div class="step-side"><div><div class="subhead">Tools</div><div class="chips">' + n.tools.map(t => '<span>' + esc(t) + '</span>').join('') + '</div></div></div>';
+    document.getElementById('arch-count').textContent = (i + 1) + ' / ' + ARCH.length;
+    archPrev.disabled = i === 0;
+    archNext.disabled = i === ARCH.length - 1;
+  }
+  archPrev.addEventListener('click', () => archCur > 0 && renderArch(archCur - 1));
+  archNext.addEventListener('click', () => archCur < ARCH.length - 1 && renderArch(archCur + 1));
+  renderArch(0);
 
   /* Sanctions agent trace */
   const CASES = [
