@@ -196,7 +196,12 @@ section { padding-block: 56px; border-top: 1px solid var(--line); scroll-margin-
 .award .links { display: flex; gap: 14px; font-size: var(--s-sm); font-weight: 600; margin-top: 4px; flex-wrap: wrap; }
 
 .pubs { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--line); }
-.pubs li { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 28px; padding-block: 14px; border-bottom: 1px solid var(--line); }
+.pubs li { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 28px; padding-block: 18px; border-bottom: 1px solid var(--line); }
+.pubs li > div { display: grid; gap: 6px; min-width: 0; }
+.pubs .ab { font-size: var(--s-sm); color: var(--ink); max-width: 78ch; }
+.pubs .pl { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+.pubs .pl a { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: var(--s-xs); color: var(--ink); text-decoration: none; border: 1px solid var(--line); border-radius: 6px; padding: 3px 10px; background: var(--surface); }
+.pubs .pl a:hover { border-color: var(--accent); color: var(--accent); }
 .pubs .venue { font-family: var(--f-mono); font-size: var(--s-xs); color: var(--muted); padding-top: 3px; }
 .pubs .pt { font-weight: 600; }
 .pubs .pt a { color: var(--ink); text-decoration-color: var(--line); }
@@ -448,12 +453,42 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
       </div>
 
       <ul class="pubs">
-        <li><span class="venue">CLEF 2026</span><div><div class="pt"><a href="https://ceur-ws.org/Vol-4283/paper208.pdf" target="_blank" rel="noopener">Pranshu Rastogi @ FinMMEval 2026: Systems for Tasks 1 and 2. Prompt-Engineered Gemini for Multilingual and Cross-Lingual Financial Reports QA</a></div><div class="pd"><span class="res">Outstanding Paper Award.</span> FinMMEval Lab. Rastogi P.</div></div></li>
-        <li><span class="venue">ACL 2025 · BEA</span><div><div class="pt"><a href="https://aclanthology.org/2025.bea-1.85/" target="_blank" rel="noopener">Phaedrus at BEA 2025 Shared Task</a></div><div class="pd"><span class="res">Track 5 winner.</span> Tutor identity classification and actionability evaluation. Rastogi P., Tiwari R.</div></div></li>
-        <li><span class="venue">ACL 2025 · SemEval</span><div><div class="pt"><a href="https://aclanthology.org/2025.semeval-1.306/" target="_blank" rel="noopener">fact check AI at SemEval-2025 Task 7</a></div><div class="pd"><span class="res">5th cross-lingual, 10th monolingual globally.</span> Multilingual claim retrieval with bi-encoder and cross-encoder ensembles. Rastogi P.</div></div></li>
-        <li><span class="venue">ACL 2025 · SDP</span><div><div class="pt"><a href="https://aclanthology.org/2025.sdp-1.17/" target="_blank" rel="noopener">Extracting Software Mentions &amp; Relations using Transformers and LLM Synthetic Data</a></div><div class="pd">NER and relation extraction with LLM-generated augmentation. Rastogi P., Tiwari R.</div></div></li>
-        <li><span class="venue">IEEE BigMM 2021</span><div><div class="pt"><a href="https://www.kaggle.com/competitions/iiitd-abuse-detection-challenge" target="_blank" rel="noopener">Multilingual Abusive Comment Identification (ShareChat / IIIT-Delhi)</a></div><div class="pd">Abuse detection across 13+ Indic languages. Accepted for presentation.</div></div></li>
-        <li><span class="venue">IEEE INDICON 2020</span><div><div class="pt"><a href="https://ieeexplore.ieee.org/document/9342107" target="_blank" rel="noopener">Glaucoma Detection and Segmentation: A Review and Study</a></div><div class="pd">Survey of deep-learning methods. Vasudeva J., Yadav J., Rastogi P.</div></div></li>
+        <li><span class="venue">CLEF 2026</span><div>
+          <div class="pt"><a href="https://ceur-ws.org/Vol-4283/paper208.pdf" target="_blank" rel="noopener">Pranshu Rastogi @ FinMMEval 2026: Systems for Tasks 1 and 2. Prompt-Engineered Gemini for Multilingual and Cross-Lingual Financial Reports QA</a></div>
+          <div class="pd"><span class="res">Outstanding Paper Award.</span> FinMMEval Lab. Rastogi P.</div>
+          <p class="ab">Financial question answering in English, Arabic, Chinese and Hindi, plus cross-lingual QA over financial reports and news, built entirely on Gemini 3.x with no fine-tuning. Per-question routing and language-specific few-shot prompts do the work. Self-consistency voting runs only on the 10–20% of questions a confidence gate flags as uncertain, and calculation questions use a two-pass extract-then-synthesise step anchored on exact table figures.</p>
+          <div class="pl"><a href="https://ceur-ws.org/Vol-4283/paper208.pdf" target="_blank" rel="noopener">Paper</a><a href="https://github.com/pranshurastogi29/finmmeval" target="_blank" rel="noopener">Code</a></div>
+        </div></li>
+        <li><span class="venue">ACL 2025 · BEA</span><div>
+          <div class="pt"><a href="https://aclanthology.org/2025.bea-1.85/" target="_blank" rel="noopener">Phaedrus at BEA 2025 Shared Task: Assessment of Mathematical Tutoring Dialogues through Tutor Identity Classification and Actionability Evaluation</a></div>
+          <div class="pd"><span class="res">1st in Track 5 (tutor identity), 5th in Track 4 (actionability).</span> Tiwari R., Rastogi P.</div>
+          <p class="ab">Tells expert and novice human tutors apart from seven different LLMs in math tutoring dialogues, using cross-response context augmentation and model ensembles (macro F1 0.970 on test). A second system judges whether tutor feedback is actionable, using selective attention masking and instruction-guided training.</p>
+          <div class="pl"><a href="https://aclanthology.org/2025.bea-1.85/" target="_blank" rel="noopener">Paper</a></div>
+        </div></li>
+        <li><span class="venue">ACL 2025 · SemEval</span><div>
+          <div class="pt"><a href="https://aclanthology.org/2025.semeval-1.306/" target="_blank" rel="noopener">fact check AI at SemEval-2025 Task 7: Multilingual and Crosslingual Fact-checked Claim Retrieval</a></div>
+          <div class="pd"><span class="res">5th cross-lingual, 10th monolingual globally.</span> Rastogi P.</div>
+          <p class="ab">Finds previously fact-checked claims that match a social-media post, across languages. Framed as learning-to-rank with fine-tuned bi-encoder sentence-similarity models, mostly under 500M parameters and trained on free Kaggle T4 GPUs. Reached 92% Success@10 monolingual and 80% cross-lingual.</p>
+          <div class="pl"><a href="https://aclanthology.org/2025.semeval-1.306/" target="_blank" rel="noopener">Paper</a><a href="https://github.com/pranshurastogi29/SemEval-2025-ACL-Multi-and-Crosslingual-Retrieval-using-Bi-encoders" target="_blank" rel="noopener">Code</a></div>
+        </div></li>
+        <li><span class="venue">ACL 2025 · SDP</span><div>
+          <div class="pt"><a href="https://aclanthology.org/2025.sdp-1.17/" target="_blank" rel="noopener">Extracting Software Mentions and Relations using Transformers and LLM-Generated Synthetic Data at SOMD 2025</a></div>
+          <div class="pd"><span class="res">2nd in the NER test phase (65% F1).</span> Rastogi P., Tiwari R.</div>
+          <p class="ab">Finds software mentions in scholarly papers, tags attributes such as versions and URLs, and classifies the relations between them. Fine-tuned DeBERTa models handle NER and pairwise relation classification, and LLM-generated synthetic sentences stretch a training set of about 1,100 annotated examples.</p>
+          <div class="pl"><a href="https://aclanthology.org/2025.sdp-1.17/" target="_blank" rel="noopener">Paper</a><a href="https://github.com/pranshurastogi29/Named_entity_Relation_Extraction_SOMD_2025_ACL" target="_blank" rel="noopener">Code</a></div>
+        </div></li>
+        <li><span class="venue">IEEE BigMM 2021</span><div>
+          <div class="pt"><a href="https://www.kaggle.com/competitions/iiitd-abuse-detection-challenge" target="_blank" rel="noopener">Multilingual Abusive Comment Identification (ShareChat / IIIT-Delhi)</a></div>
+          <div class="pd">Accepted for presentation.</div>
+          <p class="ab">Abuse detection on social-media comments across 13+ Indic languages, from the ShareChat and IIIT-Delhi challenge.</p>
+          <div class="pl"><a href="https://www.kaggle.com/competitions/iiitd-abuse-detection-challenge" target="_blank" rel="noopener">Challenge</a></div>
+        </div></li>
+        <li><span class="venue">IEEE INDICON 2020</span><div>
+          <div class="pt"><a href="https://ieeexplore.ieee.org/document/9342107" target="_blank" rel="noopener">Glaucoma Detection and Segmentation: A Review and Study</a></div>
+          <div class="pd">Vasudeva J., Yadav J., Rastogi P.</div>
+          <p class="ab">A review and study of deep-learning methods for glaucoma detection and segmentation.</p>
+          <div class="pl"><a href="https://ieeexplore.ieee.org/document/9342107" target="_blank" rel="noopener">Paper</a><a href="https://github.com/pranshurastogi29/Glaucoma_review-n-study" target="_blank" rel="noopener">Code</a></div>
+        </div></li>
       </ul>
     </div>
   </section>
