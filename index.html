@@ -240,6 +240,169 @@ section { padding-block: 56px; border-top: 1px solid var(--line); scroll-margin-
 
 footer { padding-block: 28px 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: var(--s-xs); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
+/* Case studies */
+.more { display: inline-block; margin-top: 8px; font-size: var(--s-sm); font-weight: 600; text-decoration: none; }
+.more:hover { text-decoration: underline; }
+.cs-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 28px; overflow-x: auto; scrollbar-width: none; scroll-margin-top: 72px; }
+.cs-tabs::-webkit-scrollbar { display: none; }
+.tab { all: unset; cursor: pointer; padding: 10px 14px; font-weight: 600; font-size: var(--s-sm); color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tab:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 4px; }
+.panel { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; }
+.panel > * { min-width: 0; }
+.panel-intro { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: start; }
+.panel-intro h3 { font-size: var(--s-lg); font-weight: 700; margin-bottom: 8px; }
+.panel-intro p { color: var(--muted); max-width: 68ch; }
+.outcome { border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; background: var(--surface); display: grid; gap: 2px; text-align: right; min-width: 170px; }
+.outcome b { font-family: var(--f-display); font-size: 1.9rem; line-height: 1; letter-spacing: -.02em; }
+.outcome span { font-family: var(--f-mono); font-size: var(--s-xs); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.subhead { font-family: var(--f-mono); font-size: var(--s-xs); text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 500; margin-bottom: 12px; }
+.cs-disclaim { font-size: var(--s-xs); color: var(--muted); border-left: 2px solid var(--line); padding-left: 10px; }
+
+/* Dual lens */
+.flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.flow .node { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 8px 12px; font-size: var(--s-sm); font-weight: 500; display: grid; gap: 2px; }
+.flow .node em { font-style: normal; font-family: var(--f-mono); font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; }
+.flow .lens-v { border-color: var(--accent); }
+.flow .lens-v em { color: var(--accent); }
+.flow .lens-p { border-color: var(--flag); }
+.flow .lens-p em { color: var(--flag); }
+.flow .arr { color: var(--muted); font-family: var(--f-mono); }
+.lenses { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.lens { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; display: grid; gap: 8px; align-content: start; border-top: 3px solid var(--accent); }
+.lens.p { border-top-color: var(--flag); }
+.lens h4 { font-family: var(--f-display); font-size: var(--s-md); margin: 0; }
+.lens p { color: var(--muted); font-size: var(--s-sm); }
+.lens ul { margin: 0; padding-left: 18px; font-size: var(--s-sm); display: grid; gap: 2px; }
+.lens .act { color: var(--ink); }
+.reg-note { font-size: var(--s-sm); color: var(--muted); max-width: 75ch; }
+
+.pipe { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.steps-scroll { overflow-x: auto; border-bottom: 1px solid var(--line); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(8, minmax(104px, 1fr)); }
+.steps button { all: unset; box-sizing: border-box; cursor: pointer; display: grid; gap: 4px; width: 100%; padding: 14px 12px 12px; border-top: 3px solid var(--line); font-size: var(--s-xs); font-weight: 600; color: var(--muted); }
+.steps button .n { font-family: var(--f-mono); font-weight: 500; }
+.steps button.done { border-top-color: color-mix(in srgb, var(--accent) 45%, var(--line)); color: var(--ink); }
+.steps button[aria-selected="true"] { border-top-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.steps button:hover { color: var(--ink); }
+.steps button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.step-body { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 32px; padding: 24px; }
+.step-body h4 { font-family: var(--f-display); font-size: var(--s-lg); margin: 0 0 8px; }
+.step-body .what { max-width: 62ch; }
+.step-body ul { margin: 12px 0 0; padding-left: 18px; display: grid; gap: 6px; max-width: 62ch; }
+.step-side { display: grid; gap: 16px; align-content: start; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips span { font-family: var(--f-mono); font-size: var(--s-xs); border: 1px solid var(--line); border-radius: 6px; padding: 3px 8px; background: var(--paper); }
+.artifact { border: 1px dashed var(--accent); border-radius: 8px; padding: 10px 12px; font-size: var(--s-sm); background: var(--accent-soft); }
+.step-nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 24px 16px; border-top: 1px solid var(--line); }
+.step-nav .count { font-family: var(--f-mono); font-size: var(--s-xs); color: var(--muted); }
+.step-nav .btn[disabled] { opacity: .4; cursor: default; }
+
+/* Sanctions */
+.sx { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 20px; align-items: start; }
+.cases { display: grid; gap: 10px; }
+.case { all: unset; box-sizing: border-box; cursor: pointer; display: grid; gap: 6px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.case:hover { border-color: var(--ink); }
+.case[aria-checked="true"] { border-color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
+.case:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.case b { font-size: var(--s-sm); }
+.case small { color: var(--muted); font-size: var(--s-xs); }
+.case .chip { justify-self: start; padding-inline: 8px; }
+.chip.ESCALATED { color: var(--warn); background: var(--warn-soft); }
+.chip.BLOCKED { color: var(--flag); background: var(--flag-soft); }
+.chip.High { color: var(--flag); background: var(--flag-soft); padding-inline: 8px; }
+.chip.Medium { color: var(--warn); background: var(--warn-soft); padding-inline: 8px; }
+.trace-box { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; min-width: 0; }
+.trace-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-bottom: 1px solid var(--line); font-size: var(--s-sm); }
+.compare div { padding: 12px 16px; display: grid; gap: 2px; }
+.compare div + div { border-left: 1px solid var(--line); background: color-mix(in srgb, var(--ok-soft) 50%, var(--surface)); }
+.compare .label { font-size: .68rem; }
+.trace { list-style: none; margin: 0; padding: 8px 0; }
+.trace li { display: grid; grid-template-columns: 28px 74px minmax(0, 1fr); gap: 10px; padding: 7px 16px; font-size: var(--s-sm); align-items: baseline; }
+.trace li.pending { visibility: hidden; }
+.trace li.show { animation: enter .35s ease-out; }
+.trace .i { font-family: var(--f-mono); font-size: var(--s-xs); color: var(--muted); }
+.trace .k { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .06em; font-weight: 500; text-align: center; border-radius: 4px; padding: 2px 0; background: var(--paper); color: var(--muted); }
+.trace .k.TOOL { color: var(--accent); background: var(--accent-soft); }
+.trace .k.REASON { color: var(--clear); background: var(--clear-soft); }
+.trace .k.DECISION { color: var(--ink); background: var(--line); }
+.trace code { font-family: var(--f-mono); font-size: var(--s-xs); overflow-wrap: anywhere; color: var(--ink); }
+.verdict { margin: 0 16px 16px; padding: 14px 16px; border-radius: 10px; border: 1px solid var(--line); display: grid; gap: 8px; }
+.verdict.pending { visibility: hidden; }
+.verdict-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-weight: 600; }
+.verdict-top .chip { padding-inline: 8px; }
+.verdict ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+.verdict li { font-size: var(--s-xs); font-family: var(--f-mono); border: 1px solid var(--line); border-radius: 6px; padding: 3px 8px; }
+
+/* Invoice */
+.strip { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: var(--s-xs); font-family: var(--f-mono); }
+.strip span { border: 1px solid var(--line); border-radius: 6px; padding: 4px 9px; background: var(--surface); }
+.strip i { font-style: normal; color: var(--muted); }
+.inv-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.inv-wrap { overflow-x: auto; }
+.invoice { background: #FFFFFF; color: #1B2230; border: 1px solid var(--line); border-radius: 4px; box-shadow: var(--shadow); padding: 28px 28px 24px; font-size: .82rem; line-height: 1.45; min-width: 330px; display: grid; gap: 18px; }
+.inv-top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.inv-co { font-family: var(--f-display); font-weight: 700; font-size: 1.15rem; }
+.inv-addr { color: #5A6372; width: fit-content; }
+.inv-title { font-family: var(--f-display); font-weight: 800; letter-spacing: .14em; font-size: 1.05rem; text-align: right; }
+.inv-meta dl { display: grid; grid-template-columns: auto auto; gap: 2px 12px; margin: 6px 0 0; font-size: .78rem; }
+.inv-meta dt { color: #5A6372; }
+.inv-meta dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+.inv-bill { font-size: .8rem; }
+.inv-bill span { display: block; color: #5A6372; font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; }
+.inv-lines { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.inv-lines th { text-align: left; font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; color: #5A6372; font-weight: 600; border-bottom: 1.5px solid #1B2230; padding: 6px 4px; }
+.inv-lines td { border-bottom: 1px solid #E3E7EC; padding: 7px 4px; vertical-align: top; }
+.inv-lines .num { text-align: right; white-space: nowrap; }
+.inv-foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: end; }
+.inv-bank { font-size: .78rem; width: fit-content; }
+.inv-bank span { display: block; color: #5A6372; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; }
+.inv-totals { font-family: Arial, Helvetica, sans-serif; display: grid; gap: 3px; min-width: 190px; transform: translateY(1.5px); font-variant-numeric: tabular-nums; }
+.inv-totals div { display: flex; justify-content: space-between; gap: 16px; }
+.inv-totals .grand { font-weight: 700; border-top: 1.5px solid #1B2230; padding-top: 4px; font-size: .9rem; }
+.invoice [data-region] { transition: background .2s, outline-color .2s; outline: 2px solid transparent; outline-offset: 3px; border-radius: 3px; }
+.invoice [data-region].hl { outline-color: var(--flag); background: var(--flag-soft); }
+.report { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; min-width: 0; }
+.report-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+.report-head .rec { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+.report-head .rec .chip { padding-inline: 8px; }
+.agents { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.agents span { font-family: var(--f-mono); font-size: .7rem; border-radius: 5px; padding: 3px 8px; background: var(--ok-soft); color: var(--ok); }
+.agents span.run { background: var(--paper); color: var(--muted); }
+.findings { list-style: none; margin: 0; padding: 0; }
+.finding { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; width: 100%; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.finding:hover, .finding.on { background: color-mix(in srgb, var(--flag-soft) 55%, var(--surface)); }
+.finding:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.finding .rank { font-family: var(--f-mono); font-size: var(--s-xs); color: var(--muted); padding-top: 2px; }
+.finding .ft { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-weight: 600; font-size: var(--s-sm); }
+.finding .ag { font-family: var(--f-mono); font-size: .68rem; color: var(--muted); }
+.finding p { font-size: var(--s-sm); color: var(--muted); margin-top: 3px; }
+.findings li.pending { display: none; }
+.findings li.show .finding { animation: enter .35s ease-out; }
+.passed { padding: 12px 16px 16px; display: grid; gap: 4px; font-size: var(--s-sm); }
+.passed div { color: var(--ok); }
+@media (max-width: 920px) {
+  .sx, .inv-grid, .lenses { grid-template-columns: minmax(0, 1fr); }
+  .cases { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .step-body { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+}
+@media (max-width: 640px) {
+  .panel-intro { grid-template-columns: minmax(0, 1fr); }
+  .outcome { text-align: left; justify-self: start; }
+  .cases { grid-template-columns: minmax(0, 1fr); }
+  .compare { grid-template-columns: minmax(0, 1fr); }
+  .compare div + div { border-left: none; border-top: 1px solid var(--line); }
+  .trace li { grid-template-columns: 20px 66px minmax(0, 1fr); gap: 8px; padding-inline: 12px; }
+  .step-body { padding: 18px; }
+  .step-nav { padding-inline: 18px; }
+  .invoice { padding: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .trace li.show, .findings li.show .finding { animation: none; }
+}
+
 /* Lightbox */
 dialog.lightbox { border: none; padding: 0; background: transparent; max-width: min(960px, 94vw); width: 100%; }
 dialog.lightbox::backdrop { background: rgba(6, 12, 22, .78); }
@@ -289,6 +452,7 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
     <a class="brand" href="#top">Pranshu Rastogi</a>
     <nav class="nav" aria-label="Sections">
       <a href="#impact">Impact</a>
+      <a href="#casework">Case studies</a>
       <a href="#experience">Experience</a>
       <a href="#research">Research</a>
       <a href="#projects">Projects</a>
@@ -341,17 +505,17 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
       <div class="ledger">
         <div class="entry">
           <div class="fig">40%<small>fraud losses cut</small></div>
-          <div><h3>Dual-lens APP-fraud models</h3><p>Scored scam victims and perpetrators as two independent risk problems, so the bank can intervene on either side of an authorised push payment. This work earned my promotion to Senior.</p></div>
+          <div><h3>Dual-lens APP-fraud models</h3><p>Scored scam victims and perpetrators as two independent risk problems, so the bank can intervene on either side of an authorised push payment. This work earned my promotion to Senior.</p><a class="more" href="#dual-lens">See the full pipeline →</a></div>
           <div class="stack"><b>Stack</b>XGBoost · LightGBM · behavioural graph features · SHAP</div>
         </div>
         <div class="entry">
           <div class="fig">95%<small>false sanctions alerts removed</small></div>
-          <div><h3>Real-time agentic sanctions screening</h3><p>An agentic service over live OFAC, UN, EU and HMT delta feeds that resolves name near-matches on every transaction, with zero loss of screening coverage and no human in the loop.</p></div>
+          <div><h3>Real-time agentic sanctions screening</h3><p>An agentic service over live OFAC, UN, EU and HMT delta feeds that resolves name near-matches on every transaction, with zero loss of screening coverage and no human in the loop.</p><a class="more" href="#sanctions">See a sample agent trace →</a></div>
           <div class="stack"><b>Stack</b>Agentic reasoning loops · LLM entity disambiguation · fuzzy NER</div>
         </div>
         <div class="entry">
           <div class="fig">£800K<small>invoice fraud prevented</small></div>
-          <div><h3>Multi-agent document understanding</h3><p>Reads invoices and outputs ranked evidence reports. It caught fabricated invoices that every rule-based control had missed, raised precision 20% and cut investigator review time.</p></div>
+          <div><h3>Multi-agent document understanding</h3><p>Reads invoices and outputs ranked evidence reports. It caught fabricated invoices that every rule-based control had missed, raised precision 20% and cut investigator review time.</p><a class="more" href="#invoices">Inspect a sample invoice →</a></div>
           <div class="stack"><b>Stack</b>LayoutLM · LLM document understanding · chain-of-thought agents</div>
         </div>
         <div class="entry">
@@ -365,6 +529,169 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
           <div class="stack"><b>Stack</b>PSI · KS-test · chi-squared drift detection · automated reporting</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section id="casework">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Case studies · Tide Bank</span>
+        <h2>How the systems work</h2>
+        <p>Three walkthroughs of the work behind the numbers above. Pick one to explore it.</p>
+      </div>
+
+      <div class="cs-tabs" id="cs-tabs" role="tablist" aria-label="Case studies">
+        <button class="tab" role="tab" id="tab-dual-lens" data-key="dual-lens" aria-controls="panel-dual-lens" aria-selected="true">Dual-lens APP fraud</button>
+        <button class="tab" role="tab" id="tab-sanctions" data-key="sanctions" aria-controls="panel-sanctions" aria-selected="false" tabindex="-1">Agentic sanctions screening</button>
+        <button class="tab" role="tab" id="tab-invoices" data-key="invoices" aria-controls="panel-invoices" aria-selected="false" tabindex="-1">Invoice intelligence</button>
+      </div>
+
+      <!-- Dual lens -->
+      <div class="panel" id="panel-dual-lens" role="tabpanel" aria-labelledby="tab-dual-lens">
+        <div class="panel-intro">
+          <div>
+            <h3>Dual-lens APP-fraud models, from problem statement to production</h3>
+            <p>In an authorised push-payment (APP) scam, the real customer makes the payment after being tricked, so classic fraud signals like a stolen card or a takeover often never fire. I split the problem into two lenses, one on each side of the payment, and took both models through the full ML lifecycle.</p>
+          </div>
+          <div class="outcome"><b>40%</b><span>total fraud losses cut</span></div>
+        </div>
+
+        <div>
+          <div class="subhead">Where each lens sits on a scam payment</div>
+          <div class="flow">
+            <div class="node">Scammer persuades a member</div><span class="arr" aria-hidden="true">→</span>
+            <div class="node lens-v">Member sends the payment<em>Victim lens</em></div><span class="arr" aria-hidden="true">→</span>
+            <div class="node lens-p">Account receives the money<em>Perpetrator lens</em></div><span class="arr" aria-hidden="true">→</span>
+            <div class="node">Funds moved on and cashed out</div>
+          </div>
+        </div>
+
+        <div class="lenses">
+          <div class="lens v">
+            <span class="label">Victim lens</span>
+            <h4>Is this member being scammed right now?</h4>
+            <p>Scores each outbound payment before it is released.</p>
+            <ul>
+              <li>Payee added minutes before paying</li>
+              <li>First payment to this payee</li>
+              <li>Amount far above the member's usual</li>
+              <li>New device or unusual session</li>
+              <li>Scam-style payment reference</li>
+            </ul>
+            <p class="act"><b>Action:</b> pause the payment and show a warning tailored to the scam pattern, or hold it for review.</p>
+          </div>
+          <div class="lens p">
+            <span class="label">Perpetrator lens</span>
+            <h4>Is this account receiving scam money?</h4>
+            <p>Scores accounts as inbound payments arrive.</p>
+            <ul>
+              <li>Many inbound payments from unrelated senders</li>
+              <li>Money forwarded on within minutes</li>
+              <li>Young account with little normal activity</li>
+              <li>Linked to flagged accounts by device or details</li>
+            </ul>
+            <p class="act"><b>Action:</b> restrict the account, stop onward payments and refer it to the financial-crime team.</p>
+          </div>
+        </div>
+        <p class="reg-note">Why both sides matter: under the UK's APP reimbursement rules, in force since October 2024, the sending and receiving firms usually split the cost of reimbursing a victim 50:50. A bank can be on the hook as the sender and as the receiver.</p>
+
+        <div>
+          <div class="subhead">The ML lifecycle, step by step</div>
+          <div class="pipe">
+            <div class="steps-scroll"><ol class="steps" id="steps" role="tablist" aria-label="Lifecycle stages"></ol></div>
+            <div class="step-body" id="step-body" role="tabpanel" aria-live="polite"></div>
+            <div class="step-nav">
+              <button class="btn" type="button" id="step-prev">Previous</button>
+              <span class="count" id="step-count"></span>
+              <button class="btn primary" type="button" id="step-next">Next stage</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sanctions -->
+      <div class="panel" id="panel-sanctions" role="tabpanel" aria-labelledby="tab-sanctions" hidden>
+        <div class="panel-intro">
+          <div>
+            <h3>Real-time agentic sanctions screening</h3>
+            <p>Every transaction is screened against the OFAC, UN, EU and HMT lists, and list updates are applied as they arrive. Fuzzy name matching flags many innocent near-matches. An agent investigates each one the way an analyst would: it pulls the list entry and company records, compares identifiers, then clears the alert with evidence or escalates it.</p>
+          </div>
+          <div class="outcome"><b>95%</b><span>false-positive alerts removed</span></div>
+        </div>
+        <div class="sx">
+          <div class="cases" id="cases" role="radiogroup" aria-label="Sample cases"></div>
+          <div class="trace-box">
+            <div class="trace-head"><span class="label">Agent trace · sample case</span><button class="mon-ctrl" type="button" id="trace-replay">Replay</button></div>
+            <div class="compare">
+              <div><span class="label">Rules only</span><span id="cmp-rules"></span></div>
+              <div><span class="label">With the agent</span><span id="cmp-agent"></span></div>
+            </div>
+            <ol class="trace" id="trace"></ol>
+            <div class="verdict" id="verdict"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Invoices -->
+      <div class="panel" id="panel-invoices" role="tabpanel" aria-labelledby="tab-invoices" hidden>
+        <div class="panel-intro">
+          <div>
+            <h3>Invoice document intelligence</h3>
+            <p>Business members pay supplier invoices, and fraudsters send edited or fake ones. The engine reads the page with a layout-aware model, extracts every field, and runs specialist agents that each check one thing. Investigators get a ranked evidence report instead of a raw PDF. Select a finding to see where it is on the invoice.</p>
+          </div>
+          <div class="outcome"><b>£800K</b><span>fraud prevented · +20% precision</span></div>
+        </div>
+        <div class="strip" aria-label="Processing pipeline">
+          <span>Invoice PDF</span><i>→</i><span>OCR + layout model</span><i>→</i><span>Field extraction</span><i>→</i><span>4 checking agents</span><i>→</i><span>Ranked evidence report</span><i>→</i><span>Investigator</span>
+        </div>
+        <div class="inv-grid">
+          <div class="inv-wrap">
+            <article class="invoice" id="invoice" aria-label="Sample invoice INV-20931">
+              <div class="inv-top">
+                <div>
+                  <div class="inv-co">Northgate Supplies Ltd</div>
+                  <div class="inv-addr">Unit 4, Riverside Trade Park, Leeds</div>
+                  <div class="inv-addr" data-region="email">accounts@northgate-supplies.co</div>
+                  <div class="inv-addr" data-region="vat">VAT reg. GB ••• •••• 62</div>
+                </div>
+                <div class="inv-meta">
+                  <div class="inv-title">INVOICE</div>
+                  <dl><dt>Number</dt><dd data-region="number">INV-20931</dd><dt>Date</dt><dd>14 Sep 2026</dd><dt>Due</dt><dd>On receipt</dd></dl>
+                </div>
+              </div>
+              <div class="inv-bill"><span>Bill to</span>Harbourline Cafés Ltd</div>
+              <table class="inv-lines" data-region="lines">
+                <thead><tr><th>Description</th><th class="num">Qty</th><th class="num">Unit</th><th class="num">Amount</th></tr></thead>
+                <tbody>
+                  <tr><td>Commercial coffee grinder</td><td class="num">2</td><td class="num">£1,240.00</td><td class="num">£2,480.00</td></tr>
+                  <tr><td>Espresso machine service kit</td><td class="num">4</td><td class="num">£315.00</td><td class="num">£1,260.00</td></tr>
+                  <tr><td>Installation and calibration</td><td class="num">1</td><td class="num">£1,850.00</td><td class="num">£1,850.00</td></tr>
+                  <tr><td>Delivery, pallet</td><td class="num">1</td><td class="num">£1,556.67</td><td class="num">£1,556.67</td></tr>
+                </tbody>
+              </table>
+              <div class="inv-foot">
+                <div class="inv-bank" data-region="bank"><span>Pay to</span>Northgate Supplies Ltd<br>Sort code 04-••-•• · Account ••••7731</div>
+                <div class="inv-totals" data-region="totals">
+                  <div data-region="subtotal"><span>Subtotal</span><span>£7,416.67</span></div>
+                  <div><span>VAT 20%</span><span>£1,483.33</span></div>
+                  <div class="grand"><span>Total due</span><span>£8,900.00</span></div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="report">
+            <div class="report-head">
+              <div class="rec">Recommendation <span class="chip REVIEW">REVIEW</span><span class="mono" style="font-size:var(--s-xs);color:var(--muted)">risk 0.69</span></div>
+              <button class="mon-ctrl" type="button" id="inv-rerun">Run checks again</button>
+            </div>
+            <div class="agents" id="agents"></div>
+            <ol class="findings" id="findings"></ol>
+            <div class="passed" id="passed"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="cs-disclaim" style="margin-top:28px">These are illustrative walkthroughs. Names, documents, list entries and figures are synthetic, and the architecture is simplified, so nothing here is Tide's data, code or internal configuration. The headline results are real.</p>
     </div>
   </section>
 
@@ -773,5 +1100,248 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
 })();
 </script>
 
+<script>
+(function () {
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  /* Tabs with deep links (#dual-lens, #sanctions, #invoices) */
+  const tabs = Array.from(document.querySelectorAll('#cs-tabs .tab'));
+  const tabBar = document.getElementById('cs-tabs');
+  function showTab(key, scroll) {
+    tabs.forEach(t => {
+      const on = t.dataset.key === key;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (scroll) tabBar.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => { showTab(t.dataset.key, false); history.replaceState(null, '', '#' + t.dataset.key); });
+    t.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      n.focus(); n.click();
+    });
+  });
+  function fromHash() {
+    const key = location.hash.slice(1);
+    if (tabs.some(t => t.dataset.key === key)) showTab(key, true);
+  }
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+
+  /* Dual-lens lifecycle */
+  const STEPS = [
+    { short: 'Problem', title: 'Problem statement',
+      what: 'Define the target and the business measure before touching a model. APP scams are authorised by the genuine customer, so they need their own models rather than a reused card-fraud score.',
+      points: ['Split one fuzzy problem into two independent ones: is our member being scammed (victim lens), and is our account receiving scam money (perpetrator lens)?', 'Measure success in pounds of loss prevented and in customer friction, not AUC alone.', 'Agree up front how many alerts operations can review, because that sets the operating threshold later.'],
+      tools: ['Loss analysis', 'Stakeholder workshops', 'SQL'], output: 'Problem spec: targets, success metrics and alert budget for each lens' },
+    { short: 'Data & labels', title: 'Data and labels',
+      what: 'Build a labelled dataset for each lens: confirmed scam claims for victims, confirmed mule and fraudster accounts for perpetrators.',
+      points: ['Let labels mature before training, because scam reports often arrive days or weeks after the payment.', 'Split train and test by time, not at random, so the model never learns from the future.', 'Keep the two label sets separate so noise on one side does not leak into the other.'],
+      tools: ['SQL', 'Python', 'GCP'], output: 'Point-in-time training tables for both lenses' },
+    { short: 'Features', title: 'Feature engineering',
+      what: 'Behavioural features describe the sender. Graph features describe how money moves into and out of the receiving account. Everything is computed as it was known at payment time.',
+      points: ['Victim lens: payee age, first payment to a payee, amount against the member\'s own history, session and device changes, payment reference text.', 'Perpetrator lens: inbound payments from unrelated senders, how fast money is forwarded on, account age, links to other flagged accounts.', 'Pipelines publish to a shared feature store so training and live scoring use the same definitions.'],
+      tools: ['Behavioural graph features', 'Apache Airflow', 'Feature store', 'GCP'], output: 'Versioned feature pipelines shared by training and live scoring' },
+    { short: 'Modelling', title: 'Modelling',
+      what: 'One gradient-boosted model per lens, trained and tuned independently.',
+      points: ['Gradient-boosted trees suit wide tabular data, score fast, and explain well.', 'Tune for a rare positive class instead of overall accuracy.', 'Benchmark every candidate against the existing rules so the gain is measured, not assumed.'],
+      tools: ['XGBoost', 'LightGBM', 'Python'], output: 'Candidate models for each lens with tracked experiments' },
+    { short: 'Evaluation', title: 'Evaluation',
+      what: 'Judge the models the way the business feels them.',
+      points: ['Precision and recall at the alert volume the team can actually review.', 'Pounds caught per alert, not only the count of cases.', 'Out-of-time test sets and checks by segment, for example new versus established customers.'],
+      tools: ['PR curves', 'Value-weighted metrics', 'Out-of-time tests'], output: 'Evaluation report with a threshold recommendation' },
+    { short: 'Explainability', title: 'Explainability',
+      what: 'Every score carries reason codes, so an analyst can see why an alert fired and the member can be told what looked wrong.',
+      points: ['SHAP values turned into short plain-language reasons.', 'Reasons reviewed with investigators so they match how they think.', 'The same reasons support model governance and audit.'],
+      tools: ['SHAP'], output: 'Reason codes attached to every alert' },
+    { short: 'Deployment', title: 'Deployment',
+      what: 'Ship safely in stages: shadow mode first, then champion against challenger, then full rollout.',
+      points: ['Shadow mode logs live scores without acting on them, to confirm live data matches training.', 'Champion/challenger and A/B tests compare the new models with what is already live.', 'Victim-lens scores are needed before a payment is released, so scoring latency is a design constraint.'],
+      tools: ['Shadow deployment', 'Champion / challenger', 'A/B testing'], output: 'Both lenses live behind a decision policy' },
+    { short: 'Monitoring', title: 'Monitoring and retraining',
+      what: 'Scams change fast, so the models must notice drift and refresh themselves.',
+      points: ['PSI, KS and chi-squared tests on features and scores, with automated reports.', 'A self-healing champion/challenger loop that retrains weekly instead of monthly.', 'Root-cause fixes for feature-store inconsistencies that had caused silent degradation.'],
+      tools: ['PSI / KS / chi-squared', 'Automated reporting', 'Airflow'], output: 'Outcome: total fraud losses down 40%' }
+  ];
+  const stepsEl = document.getElementById('steps');
+  const body = document.getElementById('step-body');
+  const prev = document.getElementById('step-prev');
+  const next = document.getElementById('step-next');
+  const count = document.getElementById('step-count');
+  let cur = 0;
+  STEPS.forEach((s, i) => {
+    const li = document.createElement('li');
+    const b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('role', 'tab');
+    b.innerHTML = '<span class="n">' + String(i + 1).padStart(2, '0') + '</span><span>' + esc(s.short) + '</span>';
+    b.addEventListener('click', () => renderStep(i));
+    li.appendChild(b); stepsEl.appendChild(li);
+  });
+  function renderStep(i) {
+    cur = i;
+    const s = STEPS[i];
+    stepsEl.querySelectorAll('button').forEach((b, j) => {
+      b.setAttribute('aria-selected', String(j === i));
+      b.classList.toggle('done', j < i);
+    });
+    body.innerHTML =
+      '<div><span class="label">Stage ' + (i + 1) + ' of ' + STEPS.length + '</span><h4>' + esc(s.title) + '</h4><p class="what">' + esc(s.what) + '</p><ul>' +
+      s.points.map(p => '<li>' + esc(p) + '</li>').join('') + '</ul></div>' +
+      '<div class="step-side"><div><div class="subhead">Tools</div><div class="chips">' + s.tools.map(t => '<span>' + esc(t) + '</span>').join('') +
+      '</div></div><div><div class="subhead">Output</div><div class="artifact">' + esc(s.output) + '</div></div></div>';
+    count.textContent = (i + 1) + ' / ' + STEPS.length;
+    prev.disabled = i === 0;
+    next.disabled = i === STEPS.length - 1;
+    const btn = stepsEl.querySelectorAll('button')[i];
+    const bar = stepsEl.parentElement;
+    const br = btn.getBoundingClientRect(), cr = bar.getBoundingClientRect();
+    if (br.left < cr.left || br.right > cr.right) bar.scrollLeft += br.left - cr.left - 24;
+  }
+  prev.addEventListener('click', () => cur > 0 && renderStep(cur - 1));
+  next.addEventListener('click', () => cur < STEPS.length - 1 && renderStep(cur + 1));
+  renderStep(0);
+
+  /* Sanctions agent trace */
+  const CASES = [
+    { id: 'near', title: 'Near-match on a supplier name', sub: '£4,200 to Velmora Freight Ltd', d: 'CLEARED',
+      rules: 'Name score 0.86 is over the 0.80 threshold, so the payment waits for an analyst.',
+      agent: 'Identifiers checked and the alert closed with evidence. No analyst time needed.',
+      steps: [
+        ['INPUT', 'Outbound payment of £4,200.00 to <b>Velmora Freight Ltd</b>, a UK-registered company.'],
+        ['TOOL', '<code>screen_name(name="Velmora Freight Ltd", lists=["OFAC","UN","EU","HMT"])</code>'],
+        ['RESULT', '1 candidate: <b>VELMORRA FREIGHT LLC</b> on the EU list, fuzzy name score 0.86.'],
+        ['TOOL', '<code>get_list_entry(list="EU", entity="VELMORRA FREIGHT LLC")</code>'],
+        ['RESULT', 'Listed entity is registered outside the UK, registration 77-310-5, with two named directors.'],
+        ['TOOL', '<code>get_company_record(registry="Companies House", name="Velmora Freight Ltd")</code>'],
+        ['RESULT', 'UK company incorporated 2014 with a different registration number and a UK office. Neither listed director appears.'],
+        ['REASON', 'Spelling and legal form differ ("Velmora Ltd" vs "Velmorra LLC"). Jurisdiction, registration number, address and directors all conflict. The only shared word is "Freight".'],
+        ['DECISION', 'Cleared as a false positive. Evidence written to the audit log and the payment released.']
+      ],
+      verdict: 'False positive closed automatically', ev: ['Jurisdiction differs', 'Registration number differs', 'No listed director linked', 'Shared word is generic'] },
+    { id: 'true', title: 'Strong match with shared identifiers', sub: '£18,000 to Tarkasso Marine Services', d: 'ESCALATED',
+      rules: 'The alert joins a long queue, most of it false positives.',
+      agent: 'Payment held, and an analyst gets a ready evidence pack at the top of the queue.',
+      steps: [
+        ['INPUT', 'Outbound payment of £18,000.00 to <b>Tarkasso Marine Services</b>, a payee added today.'],
+        ['TOOL', '<code>screen_name(name="Tarkasso Marine Services", lists=["OFAC","UN","EU","HMT"])</code>'],
+        ['RESULT', '1 candidate: <b>TARKASSO MARINE SERVICES FZE</b> on the OFAC list, fuzzy name score 0.97.'],
+        ['TOOL', '<code>get_list_entry(list="OFAC", entity="TARKASSO MARINE SERVICES FZE")</code>'],
+        ['RESULT', 'Listed registration number and business address retrieved.'],
+        ['TOOL', '<code>compare_identifiers(payee="Tarkasso Marine Services", listed="TARKASSO MARINE SERVICES FZE")</code>'],
+        ['RESULT', 'Registration number matches. Address matches on street and building.'],
+        ['REASON', 'Name, registration number and address all agree. This is a likely true match, so the agent must not clear it.'],
+        ['DECISION', 'Payment held and escalated to a sanctions analyst with the evidence pack, ranked first in the queue.']
+      ],
+      verdict: 'Likely true match, held for an analyst', ev: ['Registration number matches', 'Address matches', 'Name score 0.97', 'New payee'] },
+    { id: 'delta', title: 'New designation in a list update', sub: 'HMT (OFSI) update with 3 new entries', d: 'BLOCKED',
+      rules: 'Existing payees are re-screened in the next batch run, which can be hours later.',
+      agent: 'Only the changed entries are screened against every saved payee, as soon as the update lands.',
+      steps: [
+        ['INPUT', 'List update received from HMT (OFSI): 3 new designations.'],
+        ['TOOL', '<code>screen_delta(new_entries=3, against="all saved payees and counterparties")</code>'],
+        ['RESULT', '1 hit: <b>CORVANE TRADING LTD</b> matches a saved payee for 2 members, same name and company number.'],
+        ['TOOL', '<code>get_pending_payments(payee="Corvane Trading Ltd")</code>'],
+        ['RESULT', '1 scheduled payment of £2,750.00 due tomorrow.'],
+        ['REASON', 'Exact match on name and company number to a newly designated entity. Future payments must stop now.'],
+        ['DECISION', 'Scheduled payment cancelled, payee blocked for both members, and the case escalated with evidence.']
+      ],
+      verdict: 'Payee blocked as soon as the list changed', ev: ['Exact name match', 'Company number matches', 'Found from the delta, no full re-screen'] }
+  ];
+  const casesEl = document.getElementById('cases');
+  const trace = document.getElementById('trace');
+  const verdict = document.getElementById('verdict');
+  let timers = [], curCase = 0;
+  CASES.forEach((c, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'case'; b.setAttribute('role', 'radio');
+    b.innerHTML = '<b>' + esc(c.title) + '</b><small>' + esc(c.sub) + '</small><span class="chip ' + c.d + '">' + c.d + '</span>';
+    b.addEventListener('click', () => renderCase(i, true));
+    casesEl.appendChild(b);
+  });
+  function renderCase(i, animate) {
+    timers.forEach(clearTimeout); timers = [];
+    curCase = i;
+    const c = CASES[i];
+    casesEl.querySelectorAll('.case').forEach((b, j) => { b.setAttribute('aria-checked', String(j === i)); b.tabIndex = j === i ? 0 : -1; });
+    document.getElementById('cmp-rules').textContent = c.rules;
+    document.getElementById('cmp-agent').textContent = c.agent;
+    trace.innerHTML = c.steps.map((s, j) =>
+      '<li class="' + (animate && !reduce ? 'pending' : '') + '"><span class="i">' + String(j + 1).padStart(2, '0') + '</span><span class="k ' + s[0] + '">' + s[0] + '</span><span>' + s[1] + '</span></li>').join('');
+    verdict.className = 'verdict' + (animate && !reduce ? ' pending' : '');
+    verdict.innerHTML = '<div class="verdict-top"><span class="chip ' + c.d + '">' + c.d + '</span>' + esc(c.verdict) + '</div><ul>' + c.ev.map(e => '<li>' + esc(e) + '</li>').join('') + '</ul>';
+    if (animate && !reduce) {
+      const items = trace.querySelectorAll('li');
+      items.forEach((li, j) => timers.push(setTimeout(() => { li.classList.remove('pending'); li.classList.add('show'); }, 220 + j * 420)));
+      timers.push(setTimeout(() => verdict.classList.remove('pending'), 220 + items.length * 420));
+    }
+  }
+  casesEl.addEventListener('keydown', e => {
+    if (!['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft'].includes(e.key)) return;
+    e.preventDefault();
+    const n = (curCase + (e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : CASES.length - 1)) % CASES.length;
+    renderCase(n, true);
+    casesEl.querySelectorAll('.case')[n].focus();
+  });
+  document.getElementById('trace-replay').addEventListener('click', () => renderCase(curCase, true));
+  renderCase(0, false);
+
+  /* Invoice evidence report */
+  const AGENTS = ['Arithmetic', 'Supplier history', 'Visual forensics', 'Registry'];
+  const FINDINGS = [
+    { region: 'bank', sev: 'High', agent: 'Supplier history', title: 'Bank details changed',
+      text: 'Account ending 7731 has never been paid by this member. The last 6 invoices from Northgate went to the account ending 2093.' },
+    { region: 'subtotal', sev: 'High', agent: 'Arithmetic', title: 'Subtotal inflated by £270.00',
+      text: 'Line items add up to £7,146.67, but the subtotal says £7,416.67. VAT and the total are calculated from the inflated figure.' },
+    { region: 'email', sev: 'Medium', agent: 'Supplier history', title: 'Look-alike email domain',
+      text: 'Sent from northgate-supplies.co, registered 9 days ago. Earlier invoices came from northgatesupplies.co.uk.' },
+    { region: 'totals', sev: 'Medium', agent: 'Visual forensics', title: 'Totals block looks edited',
+      text: 'The totals use a different font and sit off the baseline of the rest of the page, a common sign of local editing.' }
+  ];
+  const PASSED = ['VAT number matches earlier invoices from this supplier', 'Invoice number fits the supplier\'s sequence', 'Supplier is an existing payee of this member'];
+  const invoice = document.getElementById('invoice');
+  const findingsEl = document.getElementById('findings');
+  const agentsEl = document.getElementById('agents');
+  const passedEl = document.getElementById('passed');
+  let invTimers = [];
+  function highlight(region) {
+    invoice.querySelectorAll('[data-region]').forEach(el => el.classList.toggle('hl', el.dataset.region === region));
+    findingsEl.querySelectorAll('.finding').forEach(f => f.classList.toggle('on', f.dataset.region === region));
+  }
+  findingsEl.innerHTML = FINDINGS.map((f, i) =>
+    '<li><button type="button" class="finding" data-region="' + f.region + '"><span class="rank">' + (i + 1) + '</span><span><span class="ft">' + esc(f.title) +
+    ' <span class="chip ' + f.sev + '">' + f.sev.toUpperCase() + '</span><span class="ag">' + esc(f.agent) + ' agent</span></span><p>' + esc(f.text) + '</p></span></button></li>').join('');
+  passedEl.innerHTML = '<div class="subhead" style="margin:0 0 4px">Checks passed</div>' + PASSED.map(p => '<div>✓ ' + esc(p) + '</div>').join('');
+  findingsEl.querySelectorAll('.finding').forEach(f => {
+    const go = () => highlight(f.dataset.region);
+    f.addEventListener('click', () => {
+      go();
+      const el = invoice.querySelector('[data-region="' + f.dataset.region + '"]');
+      const r = el.getBoundingClientRect();
+      if (r.bottom < 60 || r.top > window.innerHeight) el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    });
+    f.addEventListener('mouseenter', go); f.addEventListener('focus', go);
+  });
+  function renderAgents(doneCount) {
+    agentsEl.innerHTML = AGENTS.map((a, i) => '<span class="' + (i < doneCount ? '' : 'run') + '">' + (i < doneCount ? '✓ ' : '… ') + esc(a) + '</span>').join('');
+  }
+  function runChecks(animate) {
+    invTimers.forEach(clearTimeout); invTimers = [];
+    const items = findingsEl.querySelectorAll('li');
+    if (!animate || reduce) { renderAgents(AGENTS.length); items.forEach(li => li.classList.remove('pending')); passedEl.hidden = false; highlight(FINDINGS[0].region); return; }
+    renderAgents(0); highlight(null); passedEl.hidden = true;
+    items.forEach(li => { li.classList.add('pending'); li.classList.remove('show'); });
+    AGENTS.forEach((a, i) => invTimers.push(setTimeout(() => renderAgents(i + 1), 350 + i * 450)));
+    const start = 350 + AGENTS.length * 450;
+    items.forEach((li, i) => invTimers.push(setTimeout(() => { li.classList.remove('pending'); li.classList.add('show'); highlight(FINDINGS[i].region); }, start + i * 450)));
+    invTimers.push(setTimeout(() => { passedEl.hidden = false; highlight(FINDINGS[0].region); }, start + items.length * 450));
+  }
+  document.getElementById('inv-rerun').addEventListener('click', () => runChecks(true));
+  runChecks(false);
+})();
+</script>
 </body>
 </html>
