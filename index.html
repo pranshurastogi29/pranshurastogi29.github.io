@@ -180,6 +180,19 @@ section { padding-block: 56px; border-top: 1px solid var(--line); scroll-margin-
 .role h3 { font-size: var(--s-md); font-weight: 700; }
 .role .org { color: var(--muted); font-size: var(--s-sm); margin-bottom: 8px; }
 .role ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; max-width: 70ch; }
+.role-intro { color: var(--muted); max-width: 70ch; }
+.role ul.works { list-style: none; padding-left: 0; max-width: none; gap: 0; margin-top: 14px; border-top: 1px solid var(--line); }
+.work { padding-block: 16px; border-bottom: 1px solid var(--line); display: grid; gap: 8px; }
+.work:last-child { border-bottom: none; padding-bottom: 4px; }
+.work-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
+.work-head h4 { font-family: var(--f-display); font-size: var(--s-md); font-weight: 700; margin: 0; }
+.metric { font-family: var(--f-mono); font-size: var(--s-xs); font-weight: 500; color: var(--ok); background: var(--ok-soft); border-radius: 5px; padding: 2px 8px; }
+.work ul { font-size: var(--s-sm); list-style: disc; }
+.work-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
+.work-foot .more { margin-top: 0; }
+.also { margin-top: 14px; display: grid; gap: 6px; }
+.also .subhead { margin-bottom: 0; }
+.also ul { font-size: var(--s-sm); }
 .badge { display: inline-block; font-family: var(--f-mono); font-size: .7rem; letter-spacing: .05em; color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 5px; margin-left: 8px; vertical-align: middle; }
 
 /* Awards */
@@ -829,10 +842,45 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
           <div>
             <h3>Senior Data Scientist <span class="badge">Promoted</span></h3>
             <div class="org">Tide Bank · London, UK (remote)</div>
-            <ul>
-              <li>Own fraud, sanctions and document-fraud modelling end to end, from problem framing to deployment and live monitoring.</li>
-              <li>Introduced agentic AI into FinCrime operations: real-time sanctions screening and multi-agent invoice review.</li>
+            <p class="role-intro">Promoted after cutting total fraud losses by 40%. I own fraud, sanctions and document-fraud models end to end, from problem framing through deployment and live monitoring, and build agentic AI systems for financial crime.</p>
+            <ul class="works">
+              <li class="work">
+                <div class="work-head"><h4>Dual-lens APP-fraud models</h4><span class="metric">−40% total fraud losses</span></div>
+                <ul>
+                  <li>Framed authorised push-payment fraud as two independent risk problems: scoring the members being scammed (victims) and the accounts receiving the money (perpetrators).</li>
+                  <li>Engineered behavioural and graph features, and trained separate gradient-boosted models for each side with XGBoost and LightGBM.</li>
+                  <li>Added SHAP explanations so every alert shows investigators why it fired.</li>
+                  <li>Owned the work end to end, from problem framing through deployment and live monitoring.</li>
+                </ul>
+                <div class="work-foot"><div class="chips"><span>XGBoost</span><span>LightGBM</span><span>Graph features</span><span>SHAP</span></div><a class="more" href="#dual-lens">See the case study →</a></div>
+              </li>
+              <li class="work">
+                <div class="work-head"><h4>Real-time agentic sanctions screening</h4><span class="metric">−95% false-positive alerts</span></div>
+                <ul>
+                  <li>Built a real-time screening service over live OFAC, UN, EU and HMT delta feeds that checks every transaction.</li>
+                  <li>Used agentic reasoning loops with LLM entity disambiguation and fuzzy NER to resolve name near-matches the way an analyst would.</li>
+                  <li>Automated AML and PEP checks with no human in the loop, and removed 95% of false-positive alerts with zero loss of screening coverage.</li>
+                </ul>
+                <div class="work-foot"><div class="chips"><span>LLM agents</span><span>Entity disambiguation</span><span>Fuzzy NER</span></div><a class="more" href="#sanctions">See the case study →</a></div>
+              </li>
+              <li class="work">
+                <div class="work-head"><h4>Multi-agent invoice document intelligence</h4><span class="metric">£800K fraud prevented · +20% precision</span></div>
+                <ul>
+                  <li>Built a multi-agent document-understanding engine that reads supplier invoices and outputs ranked evidence reports for investigators.</li>
+                  <li>Combined layout-aware extraction (LayoutLM) with LLM document understanding and chain-of-thought reasoning agents.</li>
+                  <li>Caught fabricated invoices that every rule-based control had missed, raised detection precision by 20%, and cut investigator review time.</li>
+                </ul>
+                <div class="work-foot"><div class="chips"><span>LayoutLM</span><span>LLM document understanding</span><span>CoT agents</span></div><a class="more" href="#invoices">See the case study →</a></div>
+              </li>
             </ul>
+            <div class="also">
+              <div class="subhead">Across this work</div>
+              <ul>
+                <li>Ship models safely through shadow deployment, A/B tests and champion/challenger comparisons.</li>
+                <li>Make model behaviour explainable for investigators and model governance.</li>
+                <li>Translate model results into decisions that non-technical partners can act on.</li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="role">
@@ -840,10 +888,41 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
           <div>
             <h3>Data Scientist</h3>
             <div class="org">Tide Bank · London, UK (remote)</div>
-            <ul>
-              <li>Built Tide's first AML / SAR prevention model, now in production at 15M+ transactions a month.</li>
-              <li>Designed the champion / challenger retraining framework and drift monitoring used across models.</li>
+            <p class="role-intro">Built Tide's first AML model and the retraining and monitoring framework that keeps models healthy in production.</p>
+            <ul class="works">
+              <li class="work">
+                <div class="work-head"><h4>AML / SAR prevention model</h4><span class="metric">£2M saved per year · 15M+ txns a month</span></div>
+                <ul>
+                  <li>Built Tide's first model for preventing suspicious-activity losses, using gradient boosting on transaction-network features. It saves members £2M a year.</li>
+                  <li>Put it into production on GCP with an Airflow-managed feature store, where it now scores more than 15 million transactions a month.</li>
+                  <li>Explained every score with SHAP.</li>
+                </ul>
+                <div class="work-foot"><div class="chips"><span>Gradient boosting</span><span>Network features</span><span>GCP</span><span>Airflow</span><span>SHAP</span></div></div>
+              </li>
+              <li class="work">
+                <div class="work-head"><h4>Self-healing champion / challenger MLOps</h4><span class="metric">Retraining monthly → weekly</span></div>
+                <ul>
+                  <li>Designed a self-healing champion/challenger framework that retrains and compares models automatically.</li>
+                  <li>Added drift detection with PSI, KS and chi-squared tests, plus automated reporting.</li>
+                  <li>Found and fixed root-cause feature-store inconsistencies that had been degrading models silently, and removed manual toil from retraining.</li>
+                </ul>
+                <div class="work-foot"><div class="chips"><span>PSI / KS / χ²</span><span>Champion / challenger</span><span>Automated reporting</span></div></div>
+              </li>
             </ul>
+          </div>
+        </div>
+        <div class="role">
+          <div class="when">2020 – Present</div>
+          <div>
+            <h3>Applied NLP research &amp; competitions</h3>
+            <div class="org">Independent · alongside full-time work</div>
+            <ul>
+              <li>Outstanding Paper Award at FinMMEval 2026 (CLEF) for multilingual financial question answering, as sole author.</li>
+              <li>Bronze, 6th globally, at the NeurIPS 2025 CURE-Bench medical AI challenge.</li>
+              <li>Track 5 winner at the BEA 2025 shared task (ACL), 5th cross-lingual at SemEval 2025, and 2nd in the NER test phase at SOMD 2025.</li>
+              <li>Six published papers and a Kaggle Expert ranking in the top 2%.</li>
+            </ul>
+            <a class="more" href="#research">See papers and certificates →</a>
           </div>
         </div>
         <div class="role">
