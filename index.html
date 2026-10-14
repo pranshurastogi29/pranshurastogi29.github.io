@@ -213,8 +213,9 @@ section { padding-block: 56px; border-top: 1px solid var(--line); scroll-margin-
 .pubs li > div { display: grid; gap: 6px; min-width: 0; }
 .pubs .ab { font-size: var(--s-sm); color: var(--ink); max-width: 78ch; }
 .pubs .pl { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
-.pubs .pl a { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: var(--s-xs); color: var(--ink); text-decoration: none; border: 1px solid var(--line); border-radius: 6px; padding: 3px 10px; background: var(--surface); }
-.pubs .pl a:hover { border-color: var(--accent); color: var(--accent); }
+.pubs .pl button { cursor: pointer; }
+.pubs .pl a, .pubs .pl button { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: var(--s-xs); color: var(--ink); text-decoration: none; border: 1px solid var(--line); border-radius: 6px; padding: 3px 10px; background: var(--surface); }
+.pubs .pl a:hover, .pubs .pl button:hover { border-color: var(--accent); color: var(--accent); }
 .pubs .venue { font-family: var(--f-mono); font-size: var(--s-xs); color: var(--muted); padding-top: 3px; }
 .pubs .pt { font-weight: 600; }
 .pubs .pt a { color: var(--ink); text-decoration-color: var(--line); }
@@ -498,6 +499,22 @@ footer { padding-block: 28px 40px; border-top: 1px solid var(--line); color: var
 
 /* Lightbox */
 dialog.lightbox { border: none; padding: 0; background: transparent; max-width: min(960px, 94vw); width: 100%; }
+dialog.lightbox.wide { max-width: min(1500px, 96vw); }
+
+/* Posters */
+.posters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-bottom: 40px; }
+.poster { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; min-width: 0; }
+.poster button.thumb { all: unset; box-sizing: border-box; cursor: zoom-in; display: block; aspect-ratio: 3370 / 2384; max-width: 100%; overflow: hidden; border-bottom: 1px solid var(--line); background: #FFFFFF; }
+.poster button.thumb:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.poster img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s; }
+.poster button.thumb:hover img { transform: scale(1.02); }
+.poster .body { padding: 14px 18px 16px; display: grid; gap: 6px; align-content: start; }
+.poster .kind { font-family: var(--f-mono); font-size: var(--s-xs); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.poster h3 { font-size: var(--s-md); font-weight: 700; line-height: 1.25; }
+.poster p { color: var(--muted); font-size: var(--s-sm); }
+.poster .links { display: flex; gap: 14px; font-size: var(--s-sm); font-weight: 600; flex-wrap: wrap; }
+@media (max-width: 920px) { .posters { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .poster img { transition: none; } }
 dialog.lightbox::backdrop { background: rgba(6, 12, 22, .78); }
 dialog.lightbox figure { margin: 0; display: grid; gap: 10px; }
 dialog.lightbox img { width: auto; max-width: 100%; max-height: 84vh; margin-inline: auto; border-radius: 8px; display: block; background: #fff; }
@@ -995,6 +1012,32 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
         </article>
       </div>
 
+      <div class="subhead">Conference posters · ACL 2025 workshops</div>
+      <div class="posters">
+        <article class="poster">
+          <button class="thumb" id="poster-semeval" type="button" data-wide="1" data-cert="posters/semeval2025.jpg" data-caption="Poster · fact check AI at SemEval-2025 Task 7 · SemEval workshop at ACL 2025" data-src="posters/semeval2025_poster.pdf" aria-label="View the SemEval 2025 poster full size">
+            <img src="posters/semeval2025_thumb.jpg" alt="Poster: Multilingual and Cross-lingual Fact-Checked Claim Retrieval, a learning-to-rank approach for SemEval-2025 Task 7" loading="lazy">
+          </button>
+          <div class="body">
+            <span class="kind">SemEval 2025 · ACL</span>
+            <h3>Multilingual and cross-lingual fact-checked claim retrieval</h3>
+            <p>Learning-to-rank with fine-tuned bi-encoders and ensembling. 5th in the cross-lingual track (S@10 0.7975) and 10th in the multilingual track (S@10 0.9232).</p>
+            <div class="links"><a href="posters/semeval2025_poster.pdf" target="_blank" rel="noopener">Poster PDF</a><a href="https://aclanthology.org/2025.semeval-1.306/" target="_blank" rel="noopener">Paper</a><a href="https://github.com/pranshurastogi29/SemEval-2025-ACL-Multi-and-Crosslingual-Retrieval-using-Bi-encoders" target="_blank" rel="noopener">Code</a></div>
+          </div>
+        </article>
+        <article class="poster">
+          <button class="thumb" id="poster-somd" type="button" data-wide="1" data-cert="posters/somd2025.jpg" data-caption="Poster · Extracting Software Mentions and Relations at SOMD 2025 · SDP workshop at ACL 2025" data-src="posters/somd2025_poster.pdf" aria-label="View the SOMD 2025 poster full size">
+            <img src="posters/somd2025_thumb.jpg" alt="Poster: Extracting Software Mentions and Relations using Transformers and LLM-Generated Synthetic Data at SOMD 2025" loading="lazy">
+          </button>
+          <div class="body">
+            <span class="kind">SDP 2025 · ACL</span>
+            <h3>Software mention and relation extraction with LLM synthetic data</h3>
+            <p>DeBERTa-v3 models for NER and relation extraction, with LLM-generated training data. 65% F1 on NER, 2nd in the test phase.</p>
+            <div class="links"><a href="posters/somd2025_poster.pdf" target="_blank" rel="noopener">Poster PDF</a><a href="https://aclanthology.org/2025.sdp-1.17/" target="_blank" rel="noopener">Paper</a><a href="https://github.com/pranshurastogi29/Named_entity_Relation_Extraction_SOMD_2025_ACL" target="_blank" rel="noopener">Code</a></div>
+          </div>
+        </article>
+      </div>
+
       <ul class="pubs">
         <li><span class="venue">EMNLP 2026 · DocInsights</span><div>
           <div class="pt"><a href="drdocbench/">pranshu29 at Dr.DocBench 2026: Consensus Selection over Prompt-Diverse VLM Transcriptions for Expert-Level Document Parsing</a></div>
@@ -1016,15 +1059,15 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
         </div></li>
         <li><span class="venue">ACL 2025 · SemEval</span><div>
           <div class="pt"><a href="https://aclanthology.org/2025.semeval-1.306/" target="_blank" rel="noopener">fact check AI at SemEval-2025 Task 7: Multilingual and Crosslingual Fact-checked Claim Retrieval</a></div>
-          <div class="pd"><span class="res">5th cross-lingual, 10th monolingual globally.</span> Rastogi P.</div>
-          <p class="ab">Finds previously fact-checked claims that match a social-media post, across languages. Framed as learning-to-rank with fine-tuned bi-encoder sentence-similarity models, mostly under 500M parameters and trained on free Kaggle T4 GPUs. Reached 92% Success@10 monolingual and 80% cross-lingual.</p>
-          <div class="pl"><a href="https://aclanthology.org/2025.semeval-1.306/" target="_blank" rel="noopener">Paper</a><a href="https://github.com/pranshurastogi29/SemEval-2025-ACL-Multi-and-Crosslingual-Retrieval-using-Bi-encoders" target="_blank" rel="noopener">Code</a></div>
+          <div class="pd"><span class="res">5th cross-lingual, 10th multilingual globally.</span> Rastogi P.</div>
+          <p class="ab">Finds previously fact-checked claims that match a social-media post, across languages. Framed as learning-to-rank with fine-tuned bi-encoder sentence-similarity models, mostly under 500M parameters and trained on free Kaggle T4 GPUs. Reached 92% Success@10 multilingual and 80% cross-lingual.</p>
+          <div class="pl"><a href="https://aclanthology.org/2025.semeval-1.306/" target="_blank" rel="noopener">Paper</a><a href="https://github.com/pranshurastogi29/SemEval-2025-ACL-Multi-and-Crosslingual-Retrieval-using-Bi-encoders" target="_blank" rel="noopener">Code</a><button type="button" class="poster-open" data-target="poster-semeval">Poster</button></div>
         </div></li>
         <li><span class="venue">ACL 2025 · SDP</span><div>
           <div class="pt"><a href="https://aclanthology.org/2025.sdp-1.17/" target="_blank" rel="noopener">Extracting Software Mentions and Relations using Transformers and LLM-Generated Synthetic Data at SOMD 2025</a></div>
           <div class="pd"><span class="res">2nd in the NER test phase (65% F1).</span> Rastogi P., Tiwari R.</div>
           <p class="ab">Finds software mentions in scholarly papers, tags attributes such as versions and URLs, and classifies the relations between them. Fine-tuned DeBERTa models handle NER and pairwise relation classification, and LLM-generated synthetic sentences stretch a training set of about 1,100 annotated examples.</p>
-          <div class="pl"><a href="https://aclanthology.org/2025.sdp-1.17/" target="_blank" rel="noopener">Paper</a><a href="https://github.com/pranshurastogi29/Named_entity_Relation_Extraction_SOMD_2025_ACL" target="_blank" rel="noopener">Code</a></div>
+          <div class="pl"><a href="https://aclanthology.org/2025.sdp-1.17/" target="_blank" rel="noopener">Paper</a><a href="https://github.com/pranshurastogi29/Named_entity_Relation_Extraction_SOMD_2025_ACL" target="_blank" rel="noopener">Code</a><button type="button" class="poster-open" data-target="poster-somd">Poster</button></div>
         </div></li>
         <li><span class="venue">IEEE BigMM 2021</span><div>
           <div class="pt"><a href="https://arxiv.org/abs/2605.22380" target="_blank" rel="noopener">Multi-Stage Training for Abusive Comment Detection in Indic Languages</a></div>
@@ -1299,8 +1342,10 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
     lbImg.alt = b.querySelector('img').alt;
     document.getElementById('lb-cap').textContent = b.dataset.caption;
     document.getElementById('lb-src').href = b.dataset.src;
+    lb.classList.toggle('wide', b.dataset.wide === '1');
     if (lb.showModal) lb.showModal(); else lb.setAttribute('open', '');
   }));
+  document.querySelectorAll('.poster-open').forEach(b => b.addEventListener('click', () => document.getElementById(b.dataset.target).click()));
   document.getElementById('lb-close').addEventListener('click', () => lb.close());
   lb.addEventListener('click', e => { if (e.target === lb) lb.close(); });
 
