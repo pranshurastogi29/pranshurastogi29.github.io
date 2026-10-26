@@ -11,7 +11,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E1A2B'/%3E%3Ctext x='32' y='43' font-family='Arial' font-weight='700' font-size='28' fill='%23F1F4F7' text-anchor='middle'%3EPR%3C/text%3E%3C/svg%3E">
 <title>Pranshu Rastogi</title>
-<meta name="description" content="Senior Data Scientist building fraud, AML and agentic AI systems in production.">
+<meta name="description" content="Senior Data Scientist building fraud, AML and agentic AI systems in production, and Lab Head of Saturnalia, an independent applied AI research lab.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -161,6 +161,9 @@ section { padding-block: 56px; border-top: 1px solid var(--line); scroll-margin-
 .sec-head { display: grid; gap: 8px; margin-bottom: 28px; max-width: 65ch; }
 .sec-head h2 { font-size: var(--s-xl); font-weight: 700; line-height: 1.1; }
 .sec-head p { color: var(--muted); }
+.labhead { display: flex; align-items: center; gap: 16px; }
+.labhead img { width: 72px; height: 72px; border-radius: 14px; flex: none; box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+@media (max-width: 640px) { .labhead img { width: 52px; height: 52px; border-radius: 10px; } }
 
 /* Impact ledger */
 .ledger { display: grid; border-top: 2px solid var(--ink); }
@@ -567,7 +570,7 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
       <a href="#impact">Impact</a>
       <a href="#casework">Case studies</a>
       <a href="#experience">Experience</a>
-      <a href="#research">Research</a>
+      <a href="#research">Lab</a>
       <a href="#projects">Projects</a>
       <a class="cta" href="Pranshu_Rastogi_Resume.pdf" download>Resume</a>
       <a class="cta" href="#contact">Contact</a>
@@ -580,7 +583,7 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
     <div class="hero-copy">
       <div class="status"><span class="dot" aria-hidden="true"></span>Open to senior data science roles, full-time or contract</div>
       <h1>I build the models that stop fraud <em>before the money moves.</em></h1>
-      <p class="lede">Senior Data Scientist at <strong>Tide Bank</strong>, shipping fraud, AML and sanctions-screening systems that score <strong>15M+ transactions a month</strong>. I also publish and compete in applied NLP, with two paper awards and a NeurIPS 2025 podium finish.</p>
+      <p class="lede">Senior Data Scientist at <strong>Tide Bank</strong>, shipping fraud, AML and sanctions-screening systems that score <strong>15M+ transactions a month</strong>. I also founded and lead <a href="https://www.researchgate.net/lab/Saturnalia-Pranshu-Rastogi" target="_blank" rel="noopener"><strong>Saturnalia</strong></a>, an independent applied AI research lab, with two paper awards and a NeurIPS 2025 podium finish.</p>
       <div class="actions">
         <a class="btn primary" href="#contact">Get in touch</a>
         <a class="btn" href="Pranshu_Rastogi_Resume.pdf" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download resume</a>
@@ -934,8 +937,8 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
         <div class="role">
           <div class="when">2020 – Present</div>
           <div>
-            <h3>Applied NLP research &amp; competitions</h3>
-            <div class="org">Independent · alongside full-time work</div>
+            <h3>Founder &amp; Lab Head, Saturnalia</h3>
+            <div class="org">Independent applied AI research lab · alongside full-time work · <a href="https://www.researchgate.net/lab/Saturnalia-Pranshu-Rastogi" target="_blank" rel="noopener">ResearchGate lab page</a></div>
             <ul>
               <li>Outstanding Paper Award at FinMMEval 2026 (CLEF) for multilingual financial question answering, as sole author.</li>
               <li>Bronze, 6th globally, at the NeurIPS 2025 CURE-Bench medical AI challenge.</li>
@@ -943,7 +946,7 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
               <li>7th on the final leaderboard of the Dr.DocBench document-parsing track at the DocInsights 2026 shared task (EMNLP 2026), with Rajneesh Tiwari.</li>
               <li>Six published papers and a Kaggle Expert ranking in the top 2%.</li>
             </ul>
-            <a class="more" href="#research">See papers and certificates →</a>
+            <a class="more" href="#research">See the lab’s papers and certificates →</a>
           </div>
         </div>
         <div class="role">
@@ -960,8 +963,12 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
   <section id="research">
     <div class="wrap">
       <div class="sec-head">
-        <span class="label">Research &amp; competitions</span>
-        <h2>Awarded work, earned alongside a full-time role</h2>
+        <span class="label">Saturnalia Lab · Research &amp; competitions</span>
+        <div class="labhead">
+          <img src="lab/saturnalia_logo.png" alt="Saturnalia lab logo" width="72" height="72">
+          <h2>Saturnalia: an independent applied AI research lab</h2>
+        </div>
+        <p>Saturnalia is the research lab I founded and lead as Lab Head, alongside my full-time role. Its work spans document AI, NLP and LLM reasoning, multimodal systems and financial ML, tested in open shared tasks and benchmarks. <a href="https://www.researchgate.net/lab/Saturnalia-Pranshu-Rastogi" target="_blank" rel="noopener">Visit the lab on ResearchGate →</a></p>
         <p>Select a certificate or poster to view it full size.</p>
       </div>
 
